@@ -1,0 +1,40 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Fondo minimalista estilo Apple/Nike */
+body {
+  background: linear-gradient(180deg, #FFFFFF 0%, #FAFAFA 50%, #F5F5F7 100%);
+  background-attachment: fixed;
+  min-height: 100vh;
+}
+
+/* Estilos adicionales para inputs en tema claro */
+input,
+select,
+textarea {
+  color: #1d1d1f;
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: #86868b;
+}
+
+/* Scrollbar styling - Apple style */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #d2d2d7;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #86868b;
+}
