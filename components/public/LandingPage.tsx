@@ -79,7 +79,7 @@ export default function LandingPage({ onNavigate }: LandingPageProps) {
                         ASOCIACIÓN CIVIL SIN FINES DE LUCRO
                     </span>
                     <h1 className="text-5xl md:text-7xl font-extrabold tracking-tight text-gray-900 mb-8 leading-tight">
-                        Cultivando un <br />
+                        lo logramos <br />
                         <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-600 to-teal-500">
                             Futuro Sostenible
                         </span>
