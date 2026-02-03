@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from 'react';
-import { doc, addDoc, updateDoc, deleteDoc, collection } from 'firebase/firestore';
+import { doc, addDoc, updateDoc, deleteDoc, collection, setDoc, writeBatch, getDocs, query, where } from 'firebase/firestore';
 import { db } from '../services/firebase';
 import { Product, User, Reservation, Course, CourseType } from '../types';
 import { Card } from './common/Card';
@@ -67,27 +67,55 @@ const AdminView: React.FC<AdminViewProps> = ({ currentUser, products, setProduct
 
         switch (type) {
             case 'product':
-                setProducts(prev => prev.filter(p => p.id !== id));
+                try {
+                    await deleteDoc(doc(db, 'products', id));
+                } catch (e) {
+                    console.error("Error deleting product", e);
+                    alert("Error al eliminar producto");
+                }
                 break;
             case 'category':
+                // setCategories(prev => prev.filter(c => c !== id)); // Handled by listener? No, categories are derived from products usually, but we have a separate state.
+                // If we delete a category, what happens to products? Ideally we should update them too or block deletion.
+                // For simplicity, we just stop tracking it in the local list if it was a "suggested" category, 
+                // BUT determining if it's used is complex. 
+                // Let's assume for now we just remove it from the convenient list if we were storing it in DB.
+                // Since this app derives categories from products mainly in App.tsx, verified by:
+                // `const uniqueCategories = Array.from(new Set(productsData.map(p => p.category)));`
+                // Deleting a "Saved Category" isn't fully implemented in DB as a separate collection.
+                // We will skip DB delete for category unless we make a collection for them.
                 setCategories(prev => prev.filter(c => c !== id));
                 break;
             case 'member':
-                setUsers(prev => prev.filter(u => u.nito !== id));
+                try {
+                    // We use email as ID for users collection based on App.tsx: `doc(db, 'users', firebaseUser.email!)`
+                    // But we don't have email in itemToDelete, just ID (which was NITO) and name.
+                    // We need to find the user object to get the email.
+                    const userToDelete = users.find(u => u.nito === id);
+                    if (userToDelete) {
+                        await deleteDoc(doc(db, 'users', userToDelete.email));
+                    }
+                } catch (e) {
+                    console.error("Error deleting member", e);
+                    alert("Error al eliminar miembro");
+                }
                 break;
             case 'reservation':
                 // Instead of deleting, mark as cancelled
-                setReservations(prev => prev.map(r => {
-                    if (r.id === id) {
-                        // Look up user for email
+                try {
+                    await updateDoc(doc(db, 'reservations', id), { status: 'cancelled' });
+                    // Send notification logic remains...
+                    const r = reservations.find(res => res.id === id);
+                    if (r) {
                         const user = users.find(u => u.nito === r.userNito);
                         if (user) {
                             sendCancellationNotification(r, user.email, r.userName);
                         }
-                        return { ...r, status: 'cancelled' };
                     }
-                    return r;
-                }));
+                } catch (e) {
+                    console.error("Error cancelling reservation", e);
+                    alert("Error al cancelar reserva");
+                }
                 break;
             case 'course':
                 try {
@@ -105,15 +133,18 @@ const AdminView: React.FC<AdminViewProps> = ({ currentUser, products, setProduct
     };
 
     // --- Product Handlers ---
-    const handleAddProduct = (e: React.FormEvent) => {
+    const handleAddProduct = async (e: React.FormEvent) => {
         e.preventDefault();
-        const productToAdd: Product = {
-            id: `prod-${Date.now()}-${Math.random().toString(16).slice(2)}`,
-            ...newProduct,
-            availability: { 'Del Valle': 10, 'Coyoacán': 10 }
-        };
-        setProducts(prev => [productToAdd, ...prev]);
-        setNewProduct({ name: '', category: categories[0] || '', description: '', properties: '', imageUrl: 'https://picsum.photos/seed/new/400/400' });
+        try {
+            await addDoc(collection(db, 'products'), {
+                ...newProduct,
+                availability: { 'Del Valle': 10, 'Coyoacán': 10 }
+            });
+            setNewProduct({ name: '', category: categories[0] || '', description: '', properties: '', imageUrl: 'https://picsum.photos/seed/new/400/400' });
+        } catch (e) {
+            console.error("Error adding product", e);
+            alert("Error al crear producto");
+        }
     };
 
     const handleDeleteProductClick = (product: Product) => {
@@ -125,17 +156,30 @@ const AdminView: React.FC<AdminViewProps> = ({ currentUser, products, setProduct
         setIsProductModalOpen(true);
     };
 
-    const handleUpdateProduct = (e: React.FormEvent) => {
+    const handleUpdateProduct = async (e: React.FormEvent) => {
         e.preventDefault();
         if (!editingProduct) return;
-        setProducts(prev => prev.map(p => p.id === editingProduct.id ? editingProduct : p));
-        setIsProductModalOpen(false);
-        setEditingProduct(null);
+
+        try {
+            // eslint-disable-next-line @typescript-eslint/no-unused-vars
+            const { id, ...dataToUpdate } = editingProduct;
+            await updateDoc(doc(db, 'products', editingProduct.id), dataToUpdate);
+
+            setIsProductModalOpen(false);
+            setEditingProduct(null);
+        } catch (e) {
+            console.error("Error updating product", e);
+            alert("Error al actualizar producto");
+        }
     };
 
     // --- Category Handlers ---
     const handleAddCategory = (e: React.FormEvent) => {
         e.preventDefault();
+        // Since categories are derived from products, "adding" a category 
+        // implies just updating the local list for the dropdown until a product uses it.
+        // OR we can create a placeholder product? No, that's messy.
+        // We will keep local state for "New Categories" until they are assigned to a product.
         if (newCategory && !categories.includes(newCategory)) {
             setCategories(prev => [...prev, newCategory].sort());
             setNewCategory('');
@@ -150,21 +194,45 @@ const AdminView: React.FC<AdminViewProps> = ({ currentUser, products, setProduct
         setEditingCategory({ oldName: categoryName, newName: categoryName });
     };
 
-    const handleUpdateCategory = () => {
+    const handleUpdateCategory = async () => {
         if (!editingCategory || editingCategory.oldName === editingCategory.newName) {
             setEditingCategory(null);
             return;
         }
-        setCategories(prev => prev.map(c => c === editingCategory.oldName ? editingCategory.newName : c).sort());
-        setProducts(prev => prev.map(p => p.category === editingCategory.oldName ? { ...p, category: editingCategory.newName } : p));
-        setEditingCategory(null);
+
+        try {
+            // Batch update all products that have this category
+            const batch = writeBatch(db);
+            const q = query(collection(db, 'products'), where('category', '==', editingCategory.oldName));
+            const querySnapshot = await getDocs(q);
+
+            querySnapshot.forEach((doc) => {
+                batch.update(doc.ref, { category: editingCategory.newName });
+            });
+
+            await batch.commit();
+
+            // Local update strictly for UI responsiveness (though listener would catch it)
+            setCategories(prev => prev.map(c => c === editingCategory.oldName ? editingCategory.newName : c).sort());
+            setEditingCategory(null);
+
+        } catch (e) {
+            console.error("Error renaming category", e);
+            alert("Error al renombrar categoría");
+        }
     };
 
     // --- User Handlers ---
-    const handleAddUser = (e: React.FormEvent) => {
+    const handleAddUser = async (e: React.FormEvent) => {
         e.preventDefault();
-        setUsers(prev => [...prev, newUser]);
-        setNewUser({ nito: '', name: '', email: '', password: '', role: 'member' });
+        try {
+            // Use email as the document ID
+            await setDoc(doc(db, 'users', newUser.email), newUser);
+            setNewUser({ nito: '', name: '', email: '', password: '', role: 'member' });
+        } catch (e) {
+            console.error("Error adding user", e);
+            alert("Error al crear usuario");
+        }
     }
 
     const handleDeleteUserClick = (user: User) => {
@@ -176,12 +244,18 @@ const AdminView: React.FC<AdminViewProps> = ({ currentUser, products, setProduct
         setIsUserModalOpen(true);
     };
 
-    const handleUpdateUser = (e: React.FormEvent) => {
+    const handleUpdateUser = async (e: React.FormEvent) => {
         e.preventDefault();
         if (!editingUser) return;
-        setUsers(prev => prev.map(u => u.nito === editingUser.nito ? editingUser : u));
-        setIsUserModalOpen(false);
-        setEditingUser(null);
+
+        try {
+            await updateDoc(doc(db, 'users', editingUser.email), editingUser);
+            setIsUserModalOpen(false);
+            setEditingUser(null);
+        } catch (e) {
+            console.error("Error updating user", e);
+            alert("Error al actualizar usuario");
+        }
     };
 
     // --- Reservation Handlers ---

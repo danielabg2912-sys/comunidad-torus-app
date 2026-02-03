@@ -13,7 +13,7 @@ export const Button: React.FC<ButtonProps> = ({
   size = 'md',
   ...props
 }) => {
-  const baseClasses = 'inline-flex items-center justify-center font-semibold rounded-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-bg-primary transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed';
+  const baseClasses = 'inline-flex items-center justify-center font-semibold rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-bg-primary transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed';
 
   const variantClasses = {
     primary: 'bg-accent-green text-white hover:bg-accent-green-light focus:ring-accent-green shadow-md hover:shadow-lg',

@@ -13,7 +13,7 @@ import LegalTrackingView from './components/LegalTrackingView';
 import { WhatsAppButton } from './components/WhatsAppButton';
 import { auth, db } from './services/firebase';
 import { onAuthStateChanged, signOut } from 'firebase/auth';
-import { doc, getDoc, collection, getDocs } from 'firebase/firestore';
+import { doc, getDoc, collection, onSnapshot } from 'firebase/firestore';
 import PaperworkView from './components/public/PaperworkView';
 import LandingPage from './components/public/LandingPage';
 
@@ -115,46 +115,52 @@ const AppContent: React.FC = () => {
   // Fetch data when user is logged in
   useEffect(() => {
     if (currentUser) {
-      const fetchData = async () => {
-        try {
-          // Fetch Products
-          const productsSnapshot = await getDocs(collection(db, 'products'));
-          const productsData = productsSnapshot.docs.map(doc => doc.data() as Product);
-          setProducts(productsData);
+      // Real-time Products Listener
+      const unsubProducts = onSnapshot(collection(db, 'products'), (snapshot) => {
+        const productsData = snapshot.docs.map(doc => ({ ...doc.data(), id: doc.id } as Product));
+        setProducts(productsData);
 
-          // Fetch Categories (derive from products or fetch if stored separately)
-          // For now, we can derive unique categories from products
-          const uniqueCategories = Array.from(new Set(productsData.map(p => p.category)));
-          setCategories(uniqueCategories);
+        const uniqueCategories = Array.from(new Set(productsData.map(p => p.category)));
+        setCategories(uniqueCategories);
+      });
 
-          // Fetch Courses
-          const coursesSnapshot = await getDocs(collection(db, 'courses'));
-          setCourses(coursesSnapshot.docs.map(doc => doc.data() as Course));
+      // Real-time Courses Listener
+      const unsubCourses = onSnapshot(collection(db, 'courses'), (snapshot) => {
+        setCourses(snapshot.docs.map(doc => ({ ...doc.data(), id: doc.id } as Course)));
+      });
 
-          // Fetch Sierra Activities
-          const activitiesSnapshot = await getDocs(collection(db, 'sierra_activities'));
-          setSierraActivities(activitiesSnapshot.docs.map(doc => doc.data() as SierraActivity));
+      // Real-time Sierra Activities Listener
+      const unsubActivities = onSnapshot(collection(db, 'sierra_activities'), (snapshot) => {
+        setSierraActivities(snapshot.docs.map(doc => doc.data() as SierraActivity));
+      });
 
-          // Fetch Reservations (filter by user if not admin)
-          // TODO: Implement proper query filtering
-          const reservationsSnapshot = await getDocs(collection(db, 'reservations'));
-          const allReservations = reservationsSnapshot.docs.map(doc => doc.data() as Reservation);
+      // Real-time Reservations Listener
+      const unsubReservations = onSnapshot(collection(db, 'reservations'), (snapshot) => {
+        const allReservations = snapshot.docs.map(doc => ({ ...doc.data(), id: doc.id } as Reservation));
 
-          if (currentUser.role === 'admin') {
-            setReservations(allReservations);
-            // Fetch all users for admin
-            const usersSnapshot = await getDocs(collection(db, 'users'));
-            setUsers(usersSnapshot.docs.map(doc => doc.data() as User));
-          } else {
-            setReservations(allReservations.filter(r => r.userNito === currentUser.nito));
-          }
-
-        } catch (error) {
-          console.error("Error fetching data:", error);
+        if (currentUser.role === 'admin') {
+          setReservations(allReservations);
+        } else {
+          setReservations(allReservations.filter(r => r.userNito === currentUser.nito));
         }
-      };
+      });
 
-      fetchData();
+      let unsubUsers = () => { };
+      if (currentUser.role === 'admin') {
+        // Real-time Users Listener (Admin Only)
+        unsubUsers = onSnapshot(collection(db, 'users'), (snapshot) => {
+          setUsers(snapshot.docs.map(doc => doc.data() as User));
+        });
+      }
+
+      // Cleanup function
+      return () => {
+        unsubProducts();
+        unsubCourses();
+        unsubActivities();
+        unsubReservations();
+        unsubUsers();
+      };
     }
   }, [currentUser]);
 
@@ -249,8 +255,12 @@ const AppContent: React.FC = () => {
       <header className="w-full bg-white/90 backdrop-blur-sm shadow-sm sticky top-0 z-50 border-b border-border-light">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
-            <div className="flex-shrink-0">
-              <h1 className="text-2xl font-bold text-accent-green tracking-wider">TORUS</h1>
+            <div className="flex-shrink-0 cursor-pointer" onClick={() => setCurrentView(AppView.Profile)}>
+              <img
+                src="/images/torus-logo-black.png"
+                alt="Torus AC"
+                className="h-10 w-auto object-contain"
+              />
             </div>
             <Navbar
               navItems={navItems}

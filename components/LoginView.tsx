@@ -13,7 +13,7 @@ interface LoginViewProps {
   onLoginSuccess: (user: User) => void;
 }
 
-const LoginView: React.FC<LoginViewProps> = ({ onLoginSuccess }) => {
+const LoginView: React.FC<LoginViewProps> = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState<string | null>(null);
@@ -112,47 +112,67 @@ const LoginView: React.FC<LoginViewProps> = ({ onLoginSuccess }) => {
 
   return (
     <>
-      <div className="min-h-screen flex items-center justify-center p-4 font-sans">
-        <div className="max-w-md w-full">
-          <div className="text-center mb-8">
-            <h1 className="text-4xl font-bold text-accent-green tracking-wider">TORUS</h1>
-            <p className="text-text-secondary mt-2">Bienvenido a la comunidad</p>
+      <div className="min-h-screen flex items-center justify-center p-4 font-sans bg-slate-900 relative overflow-hidden">
+
+        {/* Decorative Background Elements */}
+        <div className="absolute top-0 left-0 w-full h-full overflow-hidden z-0">
+          <div className="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] bg-emerald-500/20 rounded-full blur-[120px]"></div>
+          <div className="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] bg-blue-500/20 rounded-full blur-[120px]"></div>
+          <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-10"></div>
+        </div>
+
+        <div className="max-w-md w-full relative z-10 animate-in fade-in zoom-in-95 duration-500">
+          <div className="text-center mb-10 flex flex-col items-center">
+            <div className="p-4 bg-white/5 rounded-3xl backdrop-blur-md border border-white/10 mb-6 shadow-2xl">
+              <img
+                src="/images/torus-logo-white.png"
+                alt="Torus AC"
+                className="h-16 w-auto object-contain drop-shadow-md"
+              />
+            </div>
+            <h2 className="text-3xl font-bold text-white tracking-tight">Bienvenido a la Comunidad</h2>
+            <p className="text-slate-400 mt-2 text-sm font-light">Accede a tu panel de control NITO</p>
           </div>
-          <Card className="p-8 shadow-xl">
+
+          <div className="bg-white/10 backdrop-blur-xl border border-white/20 p-8 md:p-10 rounded-[40px] shadow-2xl relative overflow-hidden">
+            {/* Glossy sheen */}
+            <div className="absolute top-0 left-0 w-full h-1/2 bg-gradient-to-b from-white/10 to-transparent pointer-events-none"></div>
 
             {verificationSent ? (
-              <div className="text-center">
-                <div className="w-16 h-16 bg-accent-green/20 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <Icon name="check" className="text-accent-green w-8 h-8" />
+              <div className="text-center relative z-10">
+                <div className="w-20 h-20 bg-emerald-500/20 rounded-full flex items-center justify-center mx-auto mb-6 border border-emerald-500/30">
+                  <Icon name="check" className="text-emerald-400 w-10 h-10" />
                 </div>
-                <h3 className="text-xl font-medium text-text-primary mb-2">¡Cuenta Creada!</h3>
-                <p className="text-text-secondary mb-6">Hemos enviado un correo de verificación a <strong>{email}</strong>. Por favor revisa tu bandeja de entrada (y spam) para activar tu cuenta.</p>
-                <Button onClick={() => { setVerificationSent(false); setIsSignUp(false); }} className="w-full">
-                  Volver al Inicio de Sesión
+                <h3 className="text-2xl font-bold text-white mb-3">¡Cuenta Creada!</h3>
+                <p className="text-slate-300 mb-8 leading-relaxed">Hemos enviado un correo de verificación a <strong className="text-emerald-400">{email}</strong>. Por favor revisa tu bandeja de entrada.</p>
+                <Button onClick={() => { setVerificationSent(false); setIsSignUp(false); }} className="w-full py-4 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl font-bold shadow-lg shadow-emerald-500/30 transition-all">
+                  Volver al Inicio
                 </Button>
               </div>
             ) : (
-              <form onSubmit={handleSubmit} className="space-y-6">
+              <form onSubmit={handleSubmit} className="space-y-6 relative z-10">
                 {isSignUp && (
-                  <div>
-                    <label htmlFor="name" className="block text-sm font-medium text-text-secondary">
+                  <div className="space-y-2">
+                    <label htmlFor="name" className="text-xs font-bold text-slate-300 uppercase tracking-wider ml-1">
                       Nombre Completo
                     </label>
-                    <input
-                      id="name"
-                      name="name"
-                      type="text"
-                      autoComplete="name"
-                      required={isSignUp}
-                      value={name}
-                      onChange={(e) => setName(e.target.value)}
-                      className="mt-1 block w-full px-3 py-2 bg-white border border-border-light rounded-lg shadow-sm text-text-primary placeholder-text-muted focus:outline-none focus:ring-2 focus:ring-accent-green focus:border-accent-green sm:text-sm"
-                      placeholder="Tu Nombre"
-                    />
+                    <div className="relative">
+                      <input
+                        id="name"
+                        name="name"
+                        type="text"
+                        autoComplete="name"
+                        required={isSignUp}
+                        value={name}
+                        onChange={(e) => setName(e.target.value)}
+                        className="block w-full px-4 py-3.5 bg-slate-900/50 border border-slate-700 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition-all"
+                        placeholder="Tu Nombre"
+                      />
+                    </div>
                   </div>
                 )}
-                <div>
-                  <label htmlFor="email" className="block text-sm font-medium text-text-secondary">
+                <div className="space-y-2">
+                  <label htmlFor="email" className="text-xs font-bold text-slate-300 uppercase tracking-wider ml-1">
                     Correo Electrónico
                   </label>
                   <input
@@ -163,12 +183,12 @@ const LoginView: React.FC<LoginViewProps> = ({ onLoginSuccess }) => {
                     required
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    className="mt-1 block w-full px-3 py-2 bg-white border border-border-light rounded-lg shadow-sm text-text-primary placeholder-text-muted focus:outline-none focus:ring-2 focus:ring-accent-green focus:border-accent-green sm:text-sm"
+                    className="block w-full px-4 py-3.5 bg-slate-900/50 border border-slate-700 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition-all"
                     placeholder="tu@correo.com"
                   />
                 </div>
-                <div>
-                  <label htmlFor="password" className="block text-sm font-medium text-text-secondary">
+                <div className="space-y-2">
+                  <label htmlFor="password" className="text-xs font-bold text-slate-300 uppercase tracking-wider ml-1">
                     Contraseña
                   </label>
                   <input
@@ -179,7 +199,7 @@ const LoginView: React.FC<LoginViewProps> = ({ onLoginSuccess }) => {
                     required
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
-                    className="mt-1 block w-full px-3 py-2 bg-white border border-border-light rounded-lg shadow-sm text-text-primary placeholder-text-muted focus:outline-none focus:ring-2 focus:ring-accent-green focus:border-accent-green sm:text-sm"
+                    className="block w-full px-4 py-3.5 bg-slate-900/50 border border-slate-700 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition-all"
                     placeholder="••••••••"
                   />
                 </div>
@@ -188,33 +208,37 @@ const LoginView: React.FC<LoginViewProps> = ({ onLoginSuccess }) => {
                   <button
                     type="button"
                     onClick={openForgotPasswordModal}
-                    className="text-sm font-medium text-accent-green hover:underline focus:outline-none"
+                    className="text-sm font-medium text-emerald-400 hover:text-emerald-300 transition-colors"
                   >
                     ¿Olvidaste tu contraseña?
                   </button>
                 </div>
 
                 {error && (
-                  <p className="text-sm text-accent-red bg-accent-red/10 p-3 rounded-lg text-center">{error}</p>
+                  <div className="p-4 rounded-xl bg-red-500/10 border border-red-500/20 text-red-200 text-sm flex items-center gap-3">
+                    <Icon name="alert-circle" className="w-5 h-5 text-red-400 flex-shrink-0" />
+                    {error}
+                  </div>
                 )}
 
                 <div>
-                  <Button type="submit" size="lg" className="w-full" disabled={isLoading}>
+                  <Button type="submit" size="lg" className="w-full py-4 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white font-bold rounded-xl shadow-lg shadow-emerald-500/20 transform hover:-translate-y-1 transition-all duration-200" disabled={isLoading}>
                     {isLoading ? (
-                      <>
-                        <Icon name="spinner" className="animate-spin w-5 h-5 mr-2" />
-                        {isSignUp ? 'Registrando...' : 'Ingresando...'}
-                      </>
-                    ) : (isSignUp ? 'Registrarse' : 'Ingresar')}
+                      <span className="flex items-center justify-center gap-2">
+                        <Icon name="spinner" className="animate-spin w-5 h-5" />
+                        Procesando...
+                      </span>
+                    ) : (isSignUp ? 'Crear Cuenta' : 'Iniciar Sesión')}
                   </Button>
                 </div>
-                <div className="text-center mt-4">
-                  <p className="text-text-secondary text-sm">
+
+                <div className="text-center pt-2">
+                  <p className="text-slate-400 text-sm">
                     {isSignUp ? "¿Ya tienes cuenta?" : "¿Aún no eres miembro?"}{' '}
                     <button
                       type="button"
                       onClick={() => { setIsSignUp(!isSignUp); setError(null); }}
-                      className="text-accent-green hover:underline font-medium"
+                      className="text-white hover:text-emerald-400 font-bold transition-colors ml-1"
                     >
                       {isSignUp ? "Inicia Sesión" : "Regístrate"}
                     </button>
@@ -222,21 +246,28 @@ const LoginView: React.FC<LoginViewProps> = ({ onLoginSuccess }) => {
                 </div>
               </form>
             )}
-          </Card>
+          </div>
+
+          <div className="mt-8 text-center">
+            <p className="text-slate-600 text-xs">
+              &copy; 2025 Torus AC. Todos los derechos reservados.
+            </p>
+          </div>
         </div>
       </div>
+
       <Modal
         isOpen={isForgotPasswordModalOpen}
         onClose={closeForgotPasswordModal}
         title="Recuperar Contraseña"
       >
         {!recoveryMessage ? (
-          <form onSubmit={handleForgotPasswordSubmit} className="space-y-4">
-            <p className="text-sm text-text-muted">
-              Ingresa tu correo electrónico y te enviaremos un enlace para restablecer tu contraseña.
+          <form onSubmit={handleForgotPasswordSubmit} className="space-y-6 p-1">
+            <p className="text-slate-600">
+              Ingresa tu correo electrónico y te enviaremos un enlace seguro para restablecer tu contraseña.
             </p>
-            <div>
-              <label htmlFor="recovery-email" className="block text-sm font-medium text-text-muted">
+            <div className="space-y-2">
+              <label htmlFor="recovery-email" className="text-xs font-bold text-slate-700 uppercase tracking-wider ml-1">
                 Correo Electrónico
               </label>
               <input
@@ -247,26 +278,21 @@ const LoginView: React.FC<LoginViewProps> = ({ onLoginSuccess }) => {
                 required
                 value={recoveryEmail}
                 onChange={(e) => setRecoveryEmail(e.target.value)}
-                className="mt-1 block w-full px-3 py-2 bg-dark-tertiary border border-dark-border rounded-md shadow-sm text-text-light placeholder-gray-500 focus:outline-none focus:ring-accent-green focus:border-accent-green sm:text-sm"
+                className="block w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:bg-white transition-all"
                 placeholder="tu@correo.com"
               />
             </div>
-            <Button type="submit" className="w-full" disabled={isRecovering}>
-              {isRecovering ? (
-                <>
-                  <Icon name="spinner" className="animate-spin w-5 h-5 mr-2" />
-                  Enviando...
-                </>
-              ) : 'Enviar enlace de recuperación'}
+            <Button type="submit" className="w-full py-3 bg-slate-900 text-white rounded-xl font-bold hover:bg-slate-800 transition-colors" disabled={isRecovering}>
+              {isRecovering ? 'Enviando...' : 'Enviar enlace'}
             </Button>
           </form>
         ) : (
-          <div className="text-center">
-            <div className="w-16 h-16 bg-green-900/50 rounded-full flex items-center justify-center mx-auto mb-4">
-              <Icon name="check" className="text-green-400 w-8 h-8" />
+          <div className="text-center py-6">
+            <div className="w-16 h-16 bg-emerald-100 rounded-full flex items-center justify-center mx-auto mb-4">
+              <Icon name="check" className="text-emerald-600 w-8 h-8" />
             </div>
-            <p className="text-text-muted">{recoveryMessage}</p>
-            <Button onClick={closeForgotPasswordModal} className="mt-6">
+            <p className="text-slate-600 mb-6">{recoveryMessage}</p>
+            <Button onClick={closeForgotPasswordModal} className="px-8 py-2 bg-slate-900 text-white rounded-full">
               Cerrar
             </Button>
           </div>

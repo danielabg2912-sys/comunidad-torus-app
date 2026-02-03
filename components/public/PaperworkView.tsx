@@ -64,88 +64,145 @@ export default function PaperworkView() {
     };
 
     return (
-        <div className="min-h-screen bg-gray-50 p-8">
-            <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <div className="min-h-screen bg-[#F5F7FA] font-sans text-slate-800 overflow-x-hidden selection:bg-emerald-200 selection:text-emerald-900 relative">
 
-                {/* Left Column: Form */}
-                <div className="bg-white rounded-xl shadow-lg p-6">
-                    <h2 className="text-2xl font-bold text-gray-800 mb-6">Trámites COFEPRIS</h2>
-                    <p className="text-gray-600 mb-8">
-                        Llena este formulario **una sola vez** con cuidado. Generaremos tus documentos oficiales automáticamente.
-                    </p>
+            {/* Background Decor */}
+            <div className="absolute top-0 left-0 w-full h-full overflow-hidden z-0 pointer-events-none">
+                <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-emerald-400/5 rounded-full blur-[100px]"></div>
+                <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-blue-400/5 rounded-full blur-[100px]"></div>
+            </div>
 
-                    <div className="space-y-4">
-                        <div>
-                            <label className="block text-sm font-medium text-gray-700 mb-1">Nombre Completo</label>
-                            <input
-                                type="text"
-                                className="w-full rounded-lg border-gray-300 shadow-sm focus:border-emerald-500 focus:ring-emerald-500 p-2 border"
-                                placeholder="Como aparece en tu INE"
-                                value={formData.name}
-                                onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                            />
-                        </div>
-                        <div className="grid grid-cols-2 gap-4">
-                            <div>
-                                <label className="block text-sm font-medium text-gray-700 mb-1">RFC</label>
-                                <input
-                                    type="text"
-                                    className="w-full rounded-lg border-gray-300 shadow-sm focus:border-emerald-500 focus:ring-emerald-500 p-2 border"
-                                    placeholder="Con Homoclave"
-                                    value={formData.rfc}
-                                    onChange={(e) => setFormData({ ...formData, rfc: e.target.value.toUpperCase() })}
-                                />
-                            </div>
-                            <div>
-                                <label className="block text-sm font-medium text-gray-700 mb-1">CURP</label>
-                                <input
-                                    type="text"
-                                    className="w-full rounded-lg border-gray-300 shadow-sm focus:border-emerald-500 focus:ring-emerald-500 p-2 border"
-                                    value={formData.curp}
-                                    onChange={(e) => setFormData({ ...formData, curp: e.target.value.toUpperCase() })}
-                                />
-                            </div>
-                        </div>
-
-                        <div className="pt-6 border-t mt-6 flex gap-4">
-                            <Button onClick={downloadPdf} disabled={!pdfUrl || IsEmpty(formData)}>
-                                Descargar Documento
-                            </Button>
-                        </div>
-
-                        {/* Debug Tools */}
-                        <div className="mt-8 pt-4 border-t border-dashed">
-                            <label className="flex items-center gap-2 text-sm text-gray-500 cursor-pointer select-none">
-                                <input type="checkbox" checked={debugMode} onChange={(e) => setDebugMode(e.target.checked)} />
-                                Activar Modo Diseñador (Ajustar Texto)
-                            </label>
-
-                            {debugMode && (
-                                <div className="mt-4 space-y-2 text-xs bg-gray-100 p-4 rounded">
-                                    {Object.entries(config).map(([key, val]) => (
-                                        <div key={key} className="flex gap-2 items-center">
-                                            <span className="w-16 font-bold">{key}</span>
-                                            X: <input type="number" value={val.x} onChange={(e) => handleCoordChange(key as keyof FormConfig, 'x', Number(e.target.value))} className="w-16 p-1" />
-                                            Y: <input type="number" value={val.y} onChange={(e) => handleCoordChange(key as keyof FormConfig, 'y', Number(e.target.value))} className="w-16 p-1" />
-                                        </div>
-                                    ))}
-                                </div>
-                            )}
-                        </div>
+            {/* Navbar - Simplified for App View */}
+            <nav className="relative z-50 bg-white/80 backdrop-blur-md shadow-sm py-4 border-b border-white/20">
+                <div className="max-w-7xl mx-auto px-6 flex justify-between items-center">
+                    <div className="cursor-pointer" onClick={() => window.location.href = '/'}>
+                        <img
+                            src="/images/torus-logo-black.png"
+                            alt="Torus AC"
+                            className="h-12 w-auto object-contain hover:opacity-80 transition-opacity"
+                        />
                     </div>
                 </div>
+            </nav>
 
-                {/* Right Column: Preview */}
-                <div className="bg-gray-200 rounded-xl overflow-hidden shadow-inner flex flex-col h-[800px]">
-                    {pdfUrl ? (
-                        <iframe src={pdfUrl} className="w-full h-full" title="PDF Preview" />
-                    ) : (
-                        <div className="flex items-center justify-center h-full text-gray-500">
-                            <p>Llena el formulario para ver la vista previa</p>
-                        </div>
-                    )}
+            <div className="max-w-7xl mx-auto px-6 py-12 relative z-10">
+
+                {/* Header Section */}
+                <div className="text-center mb-12 space-y-4">
+                    <span className="inline-block px-4 py-1.5 rounded-full bg-emerald-100 text-emerald-700 text-sm font-bold tracking-wider uppercase border border-emerald-200">
+                        Registro Oficial
+                    </span>
+                    <h1 className="text-4xl md:text-5xl font-black text-slate-900 tracking-tight">
+                        Trámites <span className="text-emerald-600">COFEPRIS</span>
+                    </h1>
+                    <p className="text-xl text-slate-500 max-w-2xl mx-auto font-light">
+                        Llena este formulario con cuidado. Generaremos tus documentos oficiales automáticamente para tu expediente.
+                    </p>
                 </div>
 
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+
+                    {/* Left Column: Form */}
+                    <div className="bg-white/80 backdrop-blur-xl rounded-[30px] shadow-2xl p-8 border border-white/50 space-y-8 animate-in slide-in-from-left duration-700">
+                        {/* Section Header */}
+                        <div className="flex items-center gap-4 border-b border-emerald-100 pb-6">
+                            <div className="w-12 h-12 bg-emerald-100 rounded-2xl flex items-center justify-center text-emerald-600">
+                                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                                </svg>
+                            </div>
+                            <div>
+                                <h2 className="text-xl font-bold text-slate-900">Datos Personales</h2>
+                                <p className="text-sm text-slate-500">Información requerida para el trámite</p>
+                            </div>
+                        </div>
+
+                        <div className="space-y-6">
+                            <div>
+                                <label className="block text-sm font-semibold text-slate-700 mb-2 ml-1">Nombre Completo</label>
+                                <input
+                                    type="text"
+                                    className="w-full rounded-xl border-slate-200 bg-slate-50 px-4 py-3 text-slate-900 focus:border-emerald-500 focus:ring-emerald-500 focus:bg-white transition-all shadow-sm outline-none"
+                                    placeholder="Como aparece en tu INE"
+                                    value={formData.name}
+                                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                                />
+                            </div>
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div>
+                                    <label className="block text-sm font-semibold text-slate-700 mb-2 ml-1">RFC</label>
+                                    <input
+                                        type="text"
+                                        className="w-full rounded-xl border-slate-200 bg-slate-50 px-4 py-3 text-slate-900 focus:border-emerald-500 focus:ring-emerald-500 focus:bg-white transition-all shadow-sm outline-none uppercase"
+                                        placeholder="Con Homoclave"
+                                        value={formData.rfc}
+                                        onChange={(e) => setFormData({ ...formData, rfc: e.target.value.toUpperCase() })}
+                                    />
+                                </div>
+                                <div>
+                                    <label className="block text-sm font-semibold text-slate-700 mb-2 ml-1">CURP</label>
+                                    <input
+                                        type="text"
+                                        className="w-full rounded-xl border-slate-200 bg-slate-50 px-4 py-3 text-slate-900 focus:border-emerald-500 focus:ring-emerald-500 focus:bg-white transition-all shadow-sm outline-none uppercase"
+                                        placeholder="CLAVE ÚNICA"
+                                        value={formData.curp}
+                                        onChange={(e) => setFormData({ ...formData, curp: e.target.value.toUpperCase() })}
+                                    />
+                                </div>
+                            </div>
+
+                            <div className="pt-8 flex gap-4">
+                                <Button
+                                    onClick={downloadPdf}
+                                    disabled={!pdfUrl || IsEmpty(formData)}
+                                    className="w-full py-4 text-base font-bold bg-emerald-600 hover:bg-emerald-700 text-white shadow-lg shadow-emerald-200 rounded-xl transition-all hover:scale-[1.02]"
+                                >
+                                    Descargar Documento
+                                </Button>
+                            </div>
+
+                            {/* Debug Tools */}
+                            <div className="mt-8 pt-6 border-t border-dashed border-slate-300">
+                                <label className="flex items-center gap-2 text-xs font-medium text-slate-400 cursor-pointer select-none hover:text-emerald-600 transition-colors">
+                                    <input type="checkbox" className="rounded text-emerald-500 focus:ring-emerald-500" checked={debugMode} onChange={(e) => setDebugMode(e.target.checked)} />
+                                    Activar Modo Diseñador (Ajustar Texto)
+                                </label>
+
+                                {debugMode && (
+                                    <div className="mt-4 space-y-2 text-xs bg-slate-100 p-4 rounded-xl border border-slate-200">
+                                        {Object.entries(config).map(([key, val]) => (
+                                            <div key={key} className="flex gap-2 items-center">
+                                                <span className="w-16 font-mono font-bold text-slate-600">{key}</span>
+                                                X: <input type="number" value={val.x} onChange={(e) => handleCoordChange(key as keyof FormConfig, 'x', Number(e.target.value))} className="w-16 p-1 rounded border border-slate-300" />
+                                                Y: <input type="number" value={val.y} onChange={(e) => handleCoordChange(key as keyof FormConfig, 'y', Number(e.target.value))} className="w-16 p-1 rounded border border-slate-300" />
+                                            </div>
+                                        ))}
+                                    </div>
+                                )}
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Right Column: Preview */}
+                    <div className="bg-slate-800 rounded-[30px] overflow-hidden shadow-2xl flex flex-col h-[800px] border-4 border-slate-900 animate-in slide-in-from-right duration-700">
+                        {pdfUrl ? (
+                            <iframe src={pdfUrl} className="w-full h-full" title="PDF Preview" />
+                        ) : (
+                            <div className="flex flex-col items-center justify-center h-full text-slate-500 gap-4 p-8 text-center">
+                                <div className="w-20 h-20 bg-slate-700/50 rounded-full flex items-center justify-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" className="h-10 w-10 opacity-50" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                                    </svg>
+                                </div>
+                                <p className="text-lg font-medium">Vista Previa del Documento</p>
+                                <p className="text-sm opacity-60 max-w-xs">
+                                    Completa los campos requeridos a la izquierda para generar una vista previa automática.
+                                </p>
+                            </div>
+                        )}
+                    </div>
+
+                </div>
             </div>
         </div>
     );
