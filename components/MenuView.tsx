@@ -213,11 +213,17 @@ const MenuView: React.FC<MenuViewProps> = ({ products, categories }) => {
   const scrollToTop = () => {
     const scrollContainer = document.getElementById('main-scroll-container');
     if (scrollContainer) {
-      // Smooth scroll the specific container
       scrollContainer.scrollTo({ top: 0, behavior: 'smooth' });
     }
-    // Always smooth scroll the window too, just to be absolutely certain
     window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const scrollToBottom = () => {
+    const scrollContainer = document.getElementById('main-scroll-container');
+    if (scrollContainer) {
+      scrollContainer.scrollTo({ top: scrollContainer.scrollHeight, behavior: 'smooth' });
+    }
+    window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
   };
 
   // Custom category ordering
