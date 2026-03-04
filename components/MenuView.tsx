@@ -210,20 +210,24 @@ const MenuView: React.FC<MenuViewProps> = ({ products, categories }) => {
     };
   }, []);
 
+  const SCROLL_STEP = 400;
+
   const scrollToTop = () => {
     const scrollContainer = document.getElementById('main-scroll-container');
     if (scrollContainer) {
-      scrollContainer.scrollTo({ top: 0, behavior: 'smooth' });
+      scrollContainer.scrollBy({ top: -SCROLL_STEP, behavior: 'smooth' });
+    } else {
+      window.scrollBy({ top: -SCROLL_STEP, behavior: 'smooth' });
     }
-    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   const scrollToBottom = () => {
     const scrollContainer = document.getElementById('main-scroll-container');
     if (scrollContainer) {
-      scrollContainer.scrollTo({ top: scrollContainer.scrollHeight, behavior: 'smooth' });
+      scrollContainer.scrollBy({ top: SCROLL_STEP, behavior: 'smooth' });
+    } else {
+      window.scrollBy({ top: SCROLL_STEP, behavior: 'smooth' });
     }
-    window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
   };
 
   // Custom category ordering
