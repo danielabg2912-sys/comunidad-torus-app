@@ -432,10 +432,22 @@ export default function LandingPage({ onNavigate }: LandingPageProps) {
                     </div>
                     {/* Redes Sociales */}
                     <div className="flex gap-4 items-center">
-                        <a href="https://www.instagram.com/torus_ac/" target="_blank" rel="noopener noreferrer" className="hover:text-emerald-400 transition-colors" title="Instagram"><Icon name="instagram" className="w-5 h-5" /></a>
-                        <a href="https://www.facebook.com/profile.php?id=61552677463025&sk=about" target="_blank" rel="noopener noreferrer" className="hover:text-emerald-400 transition-colors" title="Facebook"><Icon name="facebook" className="w-5 h-5" /></a>
-                        <a href="https://www.tiktok.com/@torus.ac4?_t=zs-8zppzl6ivrx&_r=1" target="_blank" rel="noopener noreferrer" className="hover:text-emerald-400 transition-colors" title="TikTok"><Icon name="tiktok" className="w-5 h-5" /></a>
-                        <a href="https://www.youtube.com/@TORUS-u9l" target="_blank" rel="noopener noreferrer" className="hover:text-emerald-400 transition-colors" title="YouTube"><Icon name="youtube" className="w-6 h-6" /></a>
+                        <a href="https://www.instagram.com/torus_ac/" target="_blank" rel="noopener noreferrer" className="hover:text-emerald-400 transition-colors relative group" title="Instagram">
+                            <Icon name="instagram" className="w-5 h-5" />
+                            <span className="absolute bottom-[120%] left-1/2 -translate-x-1/2 mb-1 w-max px-2 py-1 bg-slate-800 text-white text-[10px] font-bold uppercase rounded opacity-0 group-hover:opacity-100 transition-all duration-200 pointer-events-none drop-shadow-md">Instagram</span>
+                        </a>
+                        <a href="https://www.facebook.com/profile.php?id=61552677463025&sk=about" target="_blank" rel="noopener noreferrer" className="hover:text-emerald-400 transition-colors relative group" title="Facebook">
+                            <Icon name="facebook" className="w-5 h-5" />
+                            <span className="absolute bottom-[120%] left-1/2 -translate-x-1/2 mb-1 w-max px-2 py-1 bg-slate-800 text-white text-[10px] font-bold uppercase rounded opacity-0 group-hover:opacity-100 transition-all duration-200 pointer-events-none drop-shadow-md">Facebook</span>
+                        </a>
+                        <a href="https://www.tiktok.com/@torus.ac4?_t=zs-8zppzl6ivrx&_r=1" target="_blank" rel="noopener noreferrer" className="hover:text-emerald-400 transition-colors relative group" title="TikTok">
+                            <Icon name="tiktok" className="w-5 h-5" />
+                            <span className="absolute bottom-[120%] left-1/2 -translate-x-1/2 mb-1 w-max px-2 py-1 bg-slate-800 text-white text-[10px] font-bold uppercase rounded opacity-0 group-hover:opacity-100 transition-all duration-200 pointer-events-none drop-shadow-md">TikTok</span>
+                        </a>
+                        <a href="https://www.youtube.com/@TORUS-u9l" target="_blank" rel="noopener noreferrer" className="hover:text-emerald-400 transition-colors relative group" title="YouTube">
+                            <Icon name="youtube" className="w-6 h-6" />
+                            <span className="absolute bottom-[120%] left-1/2 -translate-x-1/2 mb-1 w-max px-2 py-1 bg-slate-800 text-white text-[10px] font-bold uppercase rounded opacity-0 group-hover:opacity-100 transition-all duration-200 pointer-events-none drop-shadow-md">YouTube</span>
+                        </a>
                     </div>
                     <div className="flex gap-6">
                         <button onClick={() => setIsPrivacyOpen(true)} className="hover:text-emerald-400 transition-colors">Privacidad</button>
