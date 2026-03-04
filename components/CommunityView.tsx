@@ -223,6 +223,38 @@ const CommunityView: React.FC<CommunityViewProps> = ({ currentUser, courses, set
   return (
     <>
       <div className="space-y-16">
+
+        {/* Cursos y Pláticas */}
+        <div>
+          <div className="flex justify-between items-center mb-6">
+            <h2 className="text-3xl font-bold text-text-light">Cursos y Pláticas</h2>
+            {isAdmin && <Button onClick={handleAddNewCourseClick}>Añadir Curso</Button>}
+          </div>
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {courses.map(course => (
+              <div key={course.id} className="relative group">
+                <CourseCard
+                  course={course}
+                  currentUser={currentUser}
+                  courseRegistrations={courseRegistrations}
+                  setCourseRegistrations={setCourseRegistrations}
+                  onShowPaymentInfo={handleShowPaymentInfo}
+                />
+                {isAdmin && (
+                  <div className="absolute top-2 right-14 opacity-0 group-hover:opacity-100 transition-opacity flex space-x-1 bg-dark-secondary/80 backdrop-blur-sm p-1 rounded-md shadow-lg">
+                    <Button variant="secondary" size="sm" onClick={() => handleEditCourseClick(course)}>
+                      <Icon name="edit" className="w-4 h-4" />
+                    </Button>
+                    <Button variant="danger" size="sm" onClick={() => handleDeleteCourseClick(course)}>
+                      <Icon name="delete" className="w-4 h-4" />
+                    </Button>
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
+
         {/* NUEVO: Contenido y Entrevistas */}
         <div>
           <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-8 gap-4">
@@ -256,12 +288,12 @@ const CommunityView: React.FC<CommunityViewProps> = ({ currentUser, courses, set
               </div>
             </div>
 
-            {/* YouTube Videos */}
-            <div className="lg:col-span-2 flex flex-col gap-6">
+            {/* YouTube Videos Grid */}
+            <div className="lg:col-span-2 grid grid-cols-1 sm:grid-cols-2 gap-6">
               <div className="bg-black rounded-2xl overflow-hidden shadow-xl border border-dark-border aspect-video w-full h-full relative group">
                 <iframe
                   className="absolute top-0 left-0 w-full h-full border-none"
-                  src="https://www.youtube.com/embed/Zz2kKt9iPXs"
+                  src="https://www.youtube.com/embed/omozZZr7hPA"
                   title="YouTube video player 1"
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                   allowFullScreen
@@ -270,44 +302,40 @@ const CommunityView: React.FC<CommunityViewProps> = ({ currentUser, courses, set
               <div className="bg-black rounded-2xl overflow-hidden shadow-xl border border-dark-border aspect-video w-full h-full relative group">
                 <iframe
                   className="absolute top-0 left-0 w-full h-full border-none"
-                  src="https://www.youtube.com/embed/lGpKSovM10E"
+                  src="https://www.youtube.com/embed/tOQxOguZJr8?start=1554"
                   title="YouTube video player 2"
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                   allowFullScreen
                 />
               </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Cursos y Pláticas */}
-        <div>
-          <div className="flex justify-between items-center mb-6">
-            <h2 className="text-3xl font-bold text-text-light">Cursos y Pláticas</h2>
-            {isAdmin && <Button onClick={handleAddNewCourseClick}>Añadir Curso</Button>}
-          </div>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {courses.map(course => (
-              <div key={course.id} className="relative group">
-                <CourseCard
-                  course={course}
-                  currentUser={currentUser}
-                  courseRegistrations={courseRegistrations}
-                  setCourseRegistrations={setCourseRegistrations}
-                  onShowPaymentInfo={handleShowPaymentInfo}
+              <div className="bg-black rounded-2xl overflow-hidden shadow-xl border border-dark-border aspect-video w-full h-full relative group">
+                <iframe
+                  className="absolute top-0 left-0 w-full h-full border-none"
+                  src="https://www.youtube.com/embed/vRLxreO7aqQ"
+                  title="YouTube video player 3"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
                 />
-                {isAdmin && (
-                  <div className="absolute top-2 right-14 opacity-0 group-hover:opacity-100 transition-opacity flex space-x-1 bg-dark-secondary/80 backdrop-blur-sm p-1 rounded-md shadow-lg">
-                    <Button variant="secondary" size="sm" onClick={() => handleEditCourseClick(course)}>
-                      <Icon name="edit" className="w-4 h-4" />
-                    </Button>
-                    <Button variant="danger" size="sm" onClick={() => handleDeleteCourseClick(course)}>
-                      <Icon name="delete" className="w-4 h-4" />
-                    </Button>
-                  </div>
-                )}
               </div>
-            ))}
+              <div className="bg-black rounded-2xl overflow-hidden shadow-xl border border-dark-border aspect-video w-full h-full relative group">
+                <iframe
+                  className="absolute top-0 left-0 w-full h-full border-none"
+                  src="https://www.youtube.com/embed/Zz2kKt9iPXs"
+                  title="YouTube video player 4"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                />
+              </div>
+              <div className="bg-black rounded-2xl overflow-hidden shadow-xl border border-dark-border aspect-video w-full h-full relative group sm:col-span-2">
+                <iframe
+                  className="absolute top-0 left-0 w-full h-full border-none"
+                  src="https://www.youtube.com/embed/lGpKSovM10E"
+                  title="YouTube video player 5"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                />
+              </div>
+            </div>
           </div>
         </div>
 
