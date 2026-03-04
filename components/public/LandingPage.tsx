@@ -30,6 +30,20 @@ export default function LandingPage({ onNavigate }: LandingPageProps) {
         window.scrollTo({ top: 0, behavior: 'smooth' });
     };
 
+    const scrollToNextSection = () => {
+        const sectionIds = ['hero', 'nosotros', 'pilares', 'impacto', 'tramite', 'faq'];
+        const currentScrollY = window.scrollY;
+
+        for (let i = 0; i < sectionIds.length; i++) {
+            const el = document.getElementById(sectionIds[i]);
+            if (el && el.offsetTop > currentScrollY + 200) {
+                window.scrollTo({ top: el.offsetTop, behavior: 'smooth' });
+                return;
+            }
+        }
+        window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+    };
+
     const [scrolled, setScrolled] = useState(false);
     const [videoLoaded, setVideoLoaded] = useState(false);
     const [scrollProgress, setScrollProgress] = useState(0);
@@ -37,7 +51,6 @@ export default function LandingPage({ onNavigate }: LandingPageProps) {
     const [isTermsOpen, setIsTermsOpen] = useState(false);
     const [isPrivacyOpen, setIsPrivacyOpen] = useState(false);
     const [isFaqOpen, setIsFaqOpen] = useState(false);
-    const [showImageMapper, setShowImageMapper] = useState(false);
 
     // Video Refs
     const videoRef = useRef<HTMLVideoElement>(null);
@@ -356,13 +369,6 @@ export default function LandingPage({ onNavigate }: LandingPageProps) {
                             <div className="flex items-center gap-6 mt-4 md:mt-0">
                                 <button onClick={() => setIsPrivacyOpen(true)} className="hover:text-white transition-colors">Privacidad</button>
                                 <button onClick={() => setIsTermsOpen(true)} className="hover:text-white transition-colors">Términos</button>
-                                <button
-                                    onClick={() => setShowImageMapper(true)}
-                                    className="flex items-center gap-2 hover:text-white transition-colors text-emerald-500/50 hover:text-emerald-400"
-                                >
-                                    <Icon name="image" className="w-4 h-4" />
-                                    <span>Gestionar Imágenes</span>
-                                </button>
                             </div>
                         </div>
                     </div>
@@ -425,13 +431,13 @@ export default function LandingPage({ onNavigate }: LandingPageProps) {
 
             {/* --- FOOTER --- */}
             <footer className="bg-[#11141d] text-slate-500 py-12 border-t border-slate-800">
-                <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-6 text-sm">
-                    <div className="flex items-center gap-4">
+                <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-8 text-sm items-center">
+                    <div className="flex items-center justify-center md:justify-start gap-4">
                         <img src="/images/torus-logo-white.png" alt="Torus AC" className="h-6 w-auto opacity-80" />
                         <span>&copy; {new Date().getFullYear()}</span>
                     </div>
-                    {/* Redes Sociales */}
-                    <div className="flex gap-4 items-center">
+                    {/* Redes Sociales Centradas */}
+                    <div className="flex gap-4 items-center justify-center">
                         <a href="https://www.instagram.com/torus_ac/" target="_blank" rel="noopener noreferrer" className="hover:text-emerald-400 transition-colors relative group" title="Instagram">
                             <Icon name="instagram" className="w-5 h-5" />
                             <span className="absolute bottom-[120%] left-1/2 -translate-x-1/2 mb-1 w-max px-2 py-1 bg-slate-800 text-white text-[10px] font-bold uppercase rounded opacity-0 group-hover:opacity-100 transition-all duration-200 pointer-events-none drop-shadow-md">Instagram</span>
@@ -449,24 +455,36 @@ export default function LandingPage({ onNavigate }: LandingPageProps) {
                             <span className="absolute bottom-[120%] left-1/2 -translate-x-1/2 mb-1 w-max px-2 py-1 bg-slate-800 text-white text-[10px] font-bold uppercase rounded opacity-0 group-hover:opacity-100 transition-all duration-200 pointer-events-none drop-shadow-md">YouTube</span>
                         </a>
                     </div>
-                    <div className="flex gap-6">
+                    <div className="flex gap-6 justify-center md:justify-end">
                         <button onClick={() => setIsPrivacyOpen(true)} className="hover:text-emerald-400 transition-colors">Privacidad</button>
                         <button onClick={() => setIsTermsOpen(true)} className="hover:text-emerald-400 transition-colors">Términos</button>
                     </div>
                 </div>
             </footer>
 
-            {/* Scroll to Previous Section Button */}
-            <button
-                onClick={scrollToPreviousSection}
-                className={`fixed bottom-24 right-8 md:bottom-8 md:right-8 z-50 p-4 rounded-full bg-emerald-600 text-white shadow-[0_0_20px_rgba(16,185,129,0.4)] transition-all duration-300 hover:bg-emerald-500 hover:scale-110 hover:-translate-y-1 ${scrolled ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-20 pointer-events-none'}`}
-                aria-label="Subir a la sección anterior"
-                title="Subir sección"
-            >
-                <svg className="w-6 h-6 rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
-                </svg>
-            </button>
+            {/* Scroll Buttons Widget */}
+            <div className={`fixed bottom-24 right-8 md:bottom-8 md:right-8 z-50 flex flex-col gap-2 transition-all duration-500 ${scrolled ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-20 pointer-events-none'}`}>
+                <button
+                    onClick={scrollToPreviousSection}
+                    className="p-3 rounded-full bg-emerald-600/90 backdrop-blur-sm text-white shadow-[0_0_15px_rgba(16,185,129,0.3)] transition-all duration-300 hover:bg-emerald-500 hover:scale-110"
+                    aria-label="Subir a la sección anterior"
+                    title="Subir sección"
+                >
+                    <svg className="w-5 h-5 rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+                    </svg>
+                </button>
+                <button
+                    onClick={scrollToNextSection}
+                    className="p-3 rounded-full bg-emerald-600/90 backdrop-blur-sm text-white shadow-[0_0_15px_rgba(16,185,129,0.3)] transition-all duration-300 hover:bg-emerald-500 hover:scale-110"
+                    aria-label="Bajar a la siguiente sección"
+                    title="Bajar sección"
+                >
+                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+                    </svg>
+                </button>
+            </div>
         </div>
     );
 }
