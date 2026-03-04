@@ -354,8 +354,8 @@ export default function LandingPage({ onNavigate }: LandingPageProps) {
                         <div className="border-t border-emerald-800 mt-12 pt-8 flex flex-col md:flex-row items-center justify-between text-emerald-200/60 text-sm">
                             <p>&copy; {new Date().getFullYear()} Torus Comunidad. Todos los derechos reservados.</p>
                             <div className="flex items-center gap-6 mt-4 md:mt-0">
-                                <a href="#" className="hover:text-white transition-colors">Privacidad</a>
-                                <a href="#" className="hover:text-white transition-colors">Términos</a>
+                                <button onClick={() => setIsPrivacyOpen(true)} className="hover:text-white transition-colors">Privacidad</button>
+                                <button onClick={() => setIsTermsOpen(true)} className="hover:text-white transition-colors">Términos</button>
                                 <button
                                     onClick={() => setShowImageMapper(true)}
                                     className="flex items-center gap-2 hover:text-white transition-colors text-emerald-500/50 hover:text-emerald-400"
@@ -447,7 +447,7 @@ export default function LandingPage({ onNavigate }: LandingPageProps) {
             {/* Scroll to Previous Section Button */}
             <button
                 onClick={scrollToPreviousSection}
-                className={`fixed bottom-8 right-8 z-50 p-4 rounded-full bg-emerald-600 text-white shadow-[0_0_20px_rgba(16,185,129,0.4)] transition-all duration-300 hover:bg-emerald-500 hover:scale-110 hover:-translate-y-1 ${scrolled ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-20 pointer-events-none'}`}
+                className={`fixed bottom-24 right-8 md:bottom-8 md:right-8 z-50 p-4 rounded-full bg-emerald-600 text-white shadow-[0_0_20px_rgba(16,185,129,0.4)] transition-all duration-300 hover:bg-emerald-500 hover:scale-110 hover:-translate-y-1 ${scrolled ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-20 pointer-events-none'}`}
                 aria-label="Subir a la sección anterior"
                 title="Subir sección"
             >
