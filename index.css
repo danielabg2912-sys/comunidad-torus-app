@@ -4,9 +4,11 @@
 
 /* Fondo minimalista estilo Apple/Nike */
 body {
-  background: linear-gradient(180deg, #FFFFFF 0%, #FAFAFA 50%, #F5F5F7 100%);
-  background-attachment: fixed;
+  background-color: #F5F7FA;
+  color: #0f172a;
+  /* Slate 900 */
   min-height: 100vh;
+  /* Removed fixed gradient to allow View-specific backgrounds if needed, but keeping a clean base */
 }
 
 /* Estilos adicionales para inputs en tema claro */
@@ -138,4 +140,12 @@ textarea::placeholder {
 
 .perspective-1000 {
   perspective: 1000px;
+}
+
+.glass-card {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.07);
 }

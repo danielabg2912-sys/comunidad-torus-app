@@ -1,19 +1,19 @@
 import React, { useState } from 'react';
-import { Card } from './common/Card';
+
 import { Button } from './common/Button';
 import { Icon } from './common/Icon';
 import { User } from '../types';
 import { Modal } from './common/Modal';
 import { auth } from '../services/firebase';
 import { signInWithEmailAndPassword, sendPasswordResetEmail, createUserWithEmailAndPassword, sendEmailVerification } from 'firebase/auth';
-import { doc, setDoc } from 'firebase/firestore';
+import { doc, setDoc, getDoc } from 'firebase/firestore';
 import { db } from '../services/firebase';
 
 interface LoginViewProps {
   onLoginSuccess: (user: User) => void;
 }
 
-const LoginView: React.FC<LoginViewProps> = () => {
+const LoginView: React.FC<LoginViewProps> = ({ onLoginSuccess }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState<string | null>(null);
@@ -57,7 +57,18 @@ const LoginView: React.FC<LoginViewProps> = () => {
         // Let's stay in current view but show success message replacing form or above it.
       } else {
         // Login Logic
-        await signInWithEmailAndPassword(auth, email, password);
+        const userCredential = await signInWithEmailAndPassword(auth, email, password);
+
+        // Fetch user data from Firestore
+        const userDocRef = doc(db, 'users', email);
+        const userDoc = await getDoc(userDocRef);
+
+        if (userDoc.exists()) {
+          const userData = userDoc.data() as User;
+          onLoginSuccess(userData);
+        } else {
+          setError('No se encontró el perfil de usuario. Contacta al administrador.');
+        }
       }
     } catch (err: any) {
       console.error("Auth error:", err);
@@ -134,7 +145,7 @@ const LoginView: React.FC<LoginViewProps> = () => {
             <p className="text-slate-400 mt-2 text-sm font-light">Accede a tu panel de control NITO</p>
           </div>
 
-          <div className="bg-white/10 backdrop-blur-xl border border-white/20 p-8 md:p-10 rounded-[40px] shadow-2xl relative overflow-hidden">
+          <div className="bg-white/10 backdrop-blur-xl border border-white/20 p-6 md:p-10 rounded-[40px] shadow-2xl relative overflow-hidden">
             {/* Glossy sheen */}
             <div className="absolute top-0 left-0 w-full h-1/2 bg-gradient-to-b from-white/10 to-transparent pointer-events-none"></div>
 

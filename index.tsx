@@ -13,7 +13,7 @@ console.log("Starting app mount...");
 const loadApp = async () => {
   try {
     console.log("Dynamically importing App...");
-    const AppModule = await import('./App');
+    const AppModule = await import('./TorusApp');
     const App = AppModule.default;
 
     console.log("App module loaded, rendering...");

@@ -567,13 +567,36 @@ const AdminView: React.FC<AdminViewProps> = ({ currentUser, products, setProduct
                             <div><label className={labelClasses}>Descripción</label><textarea value={editingProduct.description} onChange={e => setEditingProduct({ ...editingProduct, description: e.target.value })} required className={inputClasses} /></div>
                             <div><label className={labelClasses}>Propiedades</label><textarea value={editingProduct.properties} onChange={e => setEditingProduct({ ...editingProduct, properties: e.target.value })} className={inputClasses} /></div>
                             <div><label className={labelClasses}>URL de la Imagen</label><input type="url" value={editingProduct.imageUrl} onChange={e => setEditingProduct({ ...editingProduct, imageUrl: e.target.value })} required className={inputClasses} /></div>
+                            <div><label className={labelClasses}>Marca</label><input type="text" placeholder="Ej: NaturalMex, Solaris..." value={editingProduct.brand || ''} onChange={e => setEditingProduct({ ...editingProduct, brand: e.target.value })} className={inputClasses} /></div>
                             <div><label className={labelClasses}>Categoría</label><select value={editingProduct.category} onChange={e => setEditingProduct({ ...editingProduct, category: e.target.value })} className={inputClasses}>
                                 {categories.map(c => <option key={c} value={c}>{c}</option>)}
                             </select></div>
+                            {/* Etiquetas especiales */}
+                            <div className="flex gap-4 pt-2 border-t border-dark-border">
+                                <label className="flex items-center gap-2 cursor-pointer">
+                                    <div
+                                        onClick={() => setEditingProduct({ ...editingProduct, isBestseller: !editingProduct.isBestseller })}
+                                        className={`relative w-10 h-5 rounded-full transition-colors ${editingProduct.isBestseller ? 'bg-yellow-500' : 'bg-gray-600'}`}
+                                    >
+                                        <div className={`absolute top-0.5 left-0.5 w-4 h-4 bg-white rounded-full shadow transition-transform ${editingProduct.isBestseller ? 'translate-x-5' : ''}`} />
+                                    </div>
+                                    <span className="text-sm text-text-muted">⭐ Lo más vendido</span>
+                                </label>
+                                <label className="flex items-center gap-2 cursor-pointer">
+                                    <div
+                                        onClick={() => setEditingProduct({ ...editingProduct, isNew: !editingProduct.isNew })}
+                                        className={`relative w-10 h-5 rounded-full transition-colors ${editingProduct.isNew ? 'bg-emerald-500' : 'bg-gray-600'}`}
+                                    >
+                                        <div className={`absolute top-0.5 left-0.5 w-4 h-4 bg-white rounded-full shadow transition-transform ${editingProduct.isNew ? 'translate-x-5' : ''}`} />
+                                    </div>
+                                    <span className="text-sm text-text-muted">✨ Lo nuevo</span>
+                                </label>
+                            </div>
                             <Button type="submit" className="w-full">Guardar Cambios</Button>
                         </form>
                     </Modal>
                 )}
+
 
                 {isUserModalOpen && editingUser && (
                     <Modal isOpen={isUserModalOpen} onClose={() => setIsUserModalOpen(false)} title="Editar Miembro">

@@ -3,6 +3,9 @@ import { Sprout, Handshake, Search, Wheat, ArrowRight, ShieldCheck, Users } from
 import RegistrationModal from './RegistrationModal';
 import TermsModal from './TermsModal';
 import PrivacyModal from './PrivacyModal';
+import FaqModal from './FaqModal';
+import { ImageMapper } from '../admin/ImageMapper';
+import { Icon } from '../common/Icon';
 
 interface LandingPageProps {
     onNavigate: (path: string) => void;
@@ -19,6 +22,8 @@ export default function LandingPage({ onNavigate }: LandingPageProps) {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [isTermsOpen, setIsTermsOpen] = useState(false);
     const [isPrivacyOpen, setIsPrivacyOpen] = useState(false);
+    const [isFaqOpen, setIsFaqOpen] = useState(false);
+    const [showImageMapper, setShowImageMapper] = useState(false);
 
     // Video Refs
     const videoRef = useRef<HTMLVideoElement>(null);
@@ -332,10 +337,54 @@ export default function LandingPage({ onNavigate }: LandingPageProps) {
                         <button onClick={() => setIsModalOpen(true)} className="bg-white text-emerald-900 px-10 py-5 rounded-full font-bold text-lg hover:bg-emerald-50 transition-colors shadow-lg">
                             Comenzar Registro
                         </button>
+                        <div className="border-t border-emerald-800 mt-12 pt-8 flex flex-col md:flex-row items-center justify-between text-emerald-200/60 text-sm">
+                            <p>&copy; {new Date().getFullYear()} Torus Comunidad. Todos los derechos reservados.</p>
+                            <div className="flex items-center gap-6 mt-4 md:mt-0">
+                                <a href="#" className="hover:text-white transition-colors">Privacidad</a>
+                                <a href="#" className="hover:text-white transition-colors">Términos</a>
+                                <button
+                                    onClick={() => setShowImageMapper(true)}
+                                    className="flex items-center gap-2 hover:text-white transition-colors text-emerald-500/50 hover:text-emerald-400"
+                                >
+                                    <Icon name="image" className="w-4 h-4" />
+                                    <span>Gestionar Imágenes</span>
+                                </button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </section>
 
+            {/* --- FAQ BUTTON SECTION --- */}
+            <section className="bg-gradient-to-br from-emerald-600 to-teal-600 py-16 md:py-20 relative overflow-hidden">
+                <div className="absolute inset-0 opacity-10" style={{ backgroundImage: 'radial-gradient(#fff 1px, transparent 1px)', backgroundSize: '30px 30px' }}></div>
+
+                <div className="max-w-4xl mx-auto px-6 text-center relative z-10">
+                    <div ref={addToRefs}>
+                        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/20 backdrop-blur-sm text-white text-xs font-bold uppercase tracking-wider mb-6">
+                            <span className="text-xl">❓</span>
+                            Preguntas Frecuentes
+                        </div>
+                        <h2 className="text-3xl md:text-5xl font-bold text-white mb-4">
+                            ¿Tienes dudas sobre el trámite?
+                        </h2>
+                        <p className="text-emerald-100 text-lg mb-8 max-w-2xl mx-auto">
+                            Consulta nuestras preguntas frecuentes para resolver tus dudas sobre costos, duración y proceso
+                        </p>
+                        <button
+                            onClick={() => setIsFaqOpen(true)}
+                            className="bg-white text-emerald-900 px-9 py-5 rounded-full font-bold text-xl hover:bg-emerald-50 transition-all duration-300 shadow-xl hover:shadow-2xl hover:scale-105 inline-flex items-center gap-2"
+                        >
+                            <span>Ver Preguntas Frecuentes</span>
+                            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            {/* Modals */}
             <RegistrationModal
                 isOpen={isModalOpen}
                 onClose={() => setIsModalOpen(false)}
@@ -351,6 +400,14 @@ export default function LandingPage({ onNavigate }: LandingPageProps) {
                 isOpen={isPrivacyOpen}
                 onClose={() => setIsPrivacyOpen(false)}
             />
+
+            {/* FAQ Modal */}
+            <FaqModal
+                isOpen={isFaqOpen}
+                onClose={() => setIsFaqOpen(false)}
+                onStartRegistration={() => setIsModalOpen(true)}
+            />
+
 
             {/* --- FOOTER --- */}
             <footer className="bg-[#11141d] text-slate-500 py-12 border-t border-slate-800">

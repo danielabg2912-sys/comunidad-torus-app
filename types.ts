@@ -2,7 +2,7 @@
 export enum AppView {
   Profile = 'Mi Perfil',
   Booking = 'Agenda tu Cita',
-  Menu = 'Menú',
+  Menu = 'Catálogo',
   Community = 'Comunidad',
   LegalTracking = 'Seguimiento Legal',
   Admin = 'Admin',
@@ -42,6 +42,12 @@ export interface LegalStatus {
   updatedAt?: string;
 }
 
+export interface ProductOption {
+  name: string;
+  price?: number;
+  imageUrl?: string; // Optional image specific to this variant
+}
+
 export interface Product {
   id: string;
   name: string;
@@ -50,10 +56,20 @@ export interface Product {
   description: string;
   properties: string;
   imageUrl: string;
+  images?: string[]; // Optional gallery of additional images shown in detail modal
   availability: {
     'Del Valle': number;
     'Coyoacán': number;
   };
+  isBestseller?: boolean;
+  isNew?: boolean;
+  brand?: string; // Marca del producto
+  promotion?: {
+    isActive: boolean;
+    discount?: number; // Percentage discount
+    description?: string; // Promotion description
+  };
+  options?: ProductOption[]; // e.g., sizes or variations
 }
 
 export enum CourseType {
