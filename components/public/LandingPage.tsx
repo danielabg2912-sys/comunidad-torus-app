@@ -414,7 +414,14 @@ export default function LandingPage({ onNavigate }: LandingPageProps) {
                 <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-6 text-sm">
                     <div className="flex items-center gap-4">
                         <img src="/images/torus-logo-white.png" alt="Torus AC" className="h-6 w-auto opacity-80" />
-                        <span>&copy; 2025</span>
+                        <span>&copy; {new Date().getFullYear()}</span>
+                    </div>
+                    {/* Redes Sociales */}
+                    <div className="flex gap-4 items-center">
+                        <a href="https://www.instagram.com/torus_ac/" target="_blank" rel="noopener noreferrer" className="hover:text-emerald-400 transition-colors" title="Instagram"><Icon name="instagram" className="w-5 h-5" /></a>
+                        <a href="https://www.facebook.com/profile.php?id=61552677463025&sk=about" target="_blank" rel="noopener noreferrer" className="hover:text-emerald-400 transition-colors" title="Facebook"><Icon name="facebook" className="w-5 h-5" /></a>
+                        <a href="https://www.tiktok.com/@torus.ac4?_t=zs-8zppzl6ivrx&_r=1" target="_blank" rel="noopener noreferrer" className="hover:text-emerald-400 transition-colors" title="TikTok"><Icon name="tiktok" className="w-5 h-5" /></a>
+                        <a href="https://www.youtube.com/@TORUS-u9l" target="_blank" rel="noopener noreferrer" className="hover:text-emerald-400 transition-colors" title="YouTube"><Icon name="youtube" className="w-6 h-6" /></a>
                     </div>
                     <div className="flex gap-6">
                         <button onClick={() => setIsPrivacyOpen(true)} className="hover:text-emerald-400 transition-colors">Privacidad</button>

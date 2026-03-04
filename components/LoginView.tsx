@@ -57,7 +57,7 @@ const LoginView: React.FC<LoginViewProps> = ({ onLoginSuccess }) => {
         // Let's stay in current view but show success message replacing form or above it.
       } else {
         // Login Logic
-        const userCredential = await signInWithEmailAndPassword(auth, email, password);
+        await signInWithEmailAndPassword(auth, email, password);
 
         // Fetch user data from Firestore
         const userDocRef = doc(db, 'users', email);
@@ -259,9 +259,16 @@ const LoginView: React.FC<LoginViewProps> = ({ onLoginSuccess }) => {
             )}
           </div>
 
-          <div className="mt-8 text-center">
+          <div className="mt-8 text-center flex flex-col items-center gap-4">
+            {/* Redes Sociales */}
+            <div className="flex justify-center gap-5 text-slate-400">
+              <a href="https://www.instagram.com/torus_ac/" target="_blank" rel="noopener noreferrer" className="hover:text-emerald-400 transition-colors" title="Instagram"><Icon name="instagram" className="w-5 h-5" /></a>
+              <a href="https://www.facebook.com/profile.php?id=61552677463025&sk=about" target="_blank" rel="noopener noreferrer" className="hover:text-emerald-400 transition-colors" title="Facebook"><Icon name="facebook" className="w-5 h-5" /></a>
+              <a href="https://www.tiktok.com/@torus.ac4?_t=zs-8zppzl6ivrx&_r=1" target="_blank" rel="noopener noreferrer" className="hover:text-emerald-400 transition-colors" title="TikTok"><Icon name="tiktok" className="w-5 h-5" /></a>
+              <a href="https://www.youtube.com/@TORUS-u9l" target="_blank" rel="noopener noreferrer" className="hover:text-emerald-400 transition-colors" title="YouTube"><Icon name="youtube" className="w-6 h-6" /></a>
+            </div>
             <p className="text-slate-600 text-xs">
-              &copy; 2025 Torus AC. Todos los derechos reservados.
+              &copy; {new Date().getFullYear()} Torus AC. Todos los derechos reservados.
             </p>
           </div>
         </div>
