@@ -16,6 +16,20 @@ export default function LandingPage({ onNavigate }: LandingPageProps) {
         onNavigate(path);
     };
 
+    const scrollToPreviousSection = () => {
+        const sectionIds = ['hero', 'nosotros', 'pilares', 'impacto', 'tramite', 'faq'];
+        const currentScrollY = window.scrollY;
+
+        for (let i = sectionIds.length - 1; i >= 0; i--) {
+            const el = document.getElementById(sectionIds[i]);
+            if (el && el.offsetTop < currentScrollY - 200) {
+                window.scrollTo({ top: el.offsetTop, behavior: 'smooth' });
+                return;
+            }
+        }
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    };
+
     const [scrolled, setScrolled] = useState(false);
     const [videoLoaded, setVideoLoaded] = useState(false);
     const [scrollProgress, setScrollProgress] = useState(0);
@@ -134,7 +148,7 @@ export default function LandingPage({ onNavigate }: LandingPageProps) {
             </nav>
 
             {/* --- HERO SECTION (VIDEO BACKGROUND) --- */}
-            <header ref={containerRef} className="relative min-h-screen flex items-center justify-center overflow-hidden">
+            <header id="hero" ref={containerRef} className="relative min-h-screen flex items-center justify-center overflow-hidden">
 
                 {/* Video Background */}
                 <div className="absolute inset-0 bg-black z-0">
@@ -310,7 +324,7 @@ export default function LandingPage({ onNavigate }: LandingPageProps) {
             </section>
 
             {/* --- CALIDAD & CTA --- */}
-            <section className="bg-[#1a1f2c] text-white py-32 relative overflow-hidden">
+            <section id="tramite" className="bg-[#1a1f2c] text-white py-32 relative overflow-hidden">
                 <div className="absolute inset-0 opacity-10" style={{ backgroundImage: 'radial-gradient(#10b981 1px, transparent 1px)', backgroundSize: '40px 40px' }}></div>
 
                 <div className="max-w-4xl mx-auto px-6 text-center relative z-10">
@@ -356,7 +370,7 @@ export default function LandingPage({ onNavigate }: LandingPageProps) {
             </section>
 
             {/* --- FAQ BUTTON SECTION --- */}
-            <section className="bg-gradient-to-br from-emerald-600 to-teal-600 py-16 md:py-20 relative overflow-hidden">
+            <section id="faq" className="bg-gradient-to-br from-emerald-600 to-teal-600 py-16 md:py-20 relative overflow-hidden">
                 <div className="absolute inset-0 opacity-10" style={{ backgroundImage: 'radial-gradient(#fff 1px, transparent 1px)', backgroundSize: '30px 30px' }}></div>
 
                 <div className="max-w-4xl mx-auto px-6 text-center relative z-10">
@@ -429,6 +443,18 @@ export default function LandingPage({ onNavigate }: LandingPageProps) {
                     </div>
                 </div>
             </footer>
+
+            {/* Scroll to Previous Section Button */}
+            <button
+                onClick={scrollToPreviousSection}
+                className={`fixed bottom-8 right-8 z-50 p-4 rounded-full bg-emerald-600 text-white shadow-[0_0_20px_rgba(16,185,129,0.4)] transition-all duration-300 hover:bg-emerald-500 hover:scale-110 hover:-translate-y-1 ${scrolled ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-20 pointer-events-none'}`}
+                aria-label="Subir a la sección anterior"
+                title="Subir sección"
+            >
+                <svg className="w-6 h-6 rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+                </svg>
+            </button>
         </div>
     );
 }

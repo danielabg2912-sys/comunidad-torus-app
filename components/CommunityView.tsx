@@ -274,18 +274,24 @@ const CommunityView: React.FC<CommunityViewProps> = ({ currentUser, courses, set
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
-            {/* Local Video 1 Placeholder */}
-            <div className="bg-black rounded-3xl overflow-hidden shadow-2xl border border-dark-border aspect-video w-full h-full relative flex items-center justify-center p-8 text-center flex-col text-slate-400">
-              <Icon name="play" className="w-16 h-16 mb-4 opacity-30 text-emerald-500" />
-              <h4 className="text-xl font-bold text-slate-200 mb-2">Entrevista TORUS_1</h4>
-              <p className="text-sm">Video demasiado pesado (795MB) para la web.<br />Por favor, súbelo a YouTube para incrustar el enlace aquí.</p>
+            <div className="bg-black rounded-3xl overflow-hidden shadow-2xl border border-dark-border aspect-video w-full h-full relative group">
+              <iframe
+                className="absolute top-0 left-0 w-full h-full border-none"
+                src="https://www.youtube.com/embed/YDTFNvI3RP0"
+                title="Entrevista TORUS_1"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+              ></iframe>
             </div>
 
-            {/* Local Video 2 Placeholder */}
-            <div className="bg-black rounded-3xl overflow-hidden shadow-2xl border border-dark-border aspect-video w-full h-full relative flex items-center justify-center p-8 text-center flex-col text-slate-400">
-              <Icon name="play" className="w-16 h-16 mb-4 opacity-30 text-emerald-500" />
-              <h4 className="text-xl font-bold text-slate-200 mb-2">TORUS MARCHA</h4>
-              <p className="text-sm">Video demasiado pesado (700MB) para la web.<br />Por favor, súbelo a YouTube para incrustar el enlace aquí.</p>
+            <div className="bg-black rounded-3xl overflow-hidden shadow-2xl border border-dark-border aspect-video w-full h-full relative group">
+              <iframe
+                className="absolute top-0 left-0 w-full h-full border-none"
+                src="https://www.youtube.com/embed/omozZZr7hPA"
+                title="TORUS MARCHA"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+              ></iframe>
             </div>
           </div>
 
