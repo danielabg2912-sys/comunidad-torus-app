@@ -433,7 +433,7 @@ const CommunityView: React.FC<CommunityViewProps> = ({ currentUser, courses, set
       />
 
       {/* Scroll Buttons Widget */}
-      <div className={`fixed bottom-8 right-8 z-40 flex flex-col gap-2 transition-all duration-500 ${scrolled ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-10 pointer-events-none'}`}>
+      <div className={`fixed bottom-28 right-6 md:right-8 z-40 flex flex-col gap-2 transition-all duration-500 ${scrolled ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-10 pointer-events-none'}`}>
         <button
           onClick={scrollToTop}
           className="p-3 rounded-full bg-emerald-600/90 backdrop-blur-sm text-white shadow-[0_0_15px_rgba(16,185,129,0.3)] transition-all duration-300 hover:bg-emerald-500 hover:scale-110"
