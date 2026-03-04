@@ -166,7 +166,67 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({ product,
                                     </div>
                                 )}
 
+                                {/* Lab Results (Certificate of Analysis) */}
+                                {product.labResults && (
+                                    <div className="mb-8">
+                                        <div className="flex items-center gap-2 mb-4">
+                                            <Icon name="clipboard" className="w-5 h-5 text-emerald-600" />
+                                            <h3 className="text-sm font-bold text-slate-500 uppercase tracking-wider">
+                                                Certificado de Análisis (COA)
+                                            </h3>
+                                        </div>
+                                        <div className="bg-slate-50 rounded-2xl p-5 border border-slate-100 shadow-sm relative overflow-hidden">
+                                            {/* Decorative background element */}
+                                            <div className="absolute top-0 right-0 w-32 h-32 bg-emerald-500/5 rounded-full blur-2xl -mt-10 -mr-10" />
+
+                                            <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center border-b border-slate-200 pb-4 mb-4 relative z-10">
+                                                <div>
+                                                    <p className="text-xs text-slate-400 font-semibold uppercase tracking-wider mb-1">Laboratorio</p>
+                                                    <p className="text-sm font-bold text-slate-800">{product.labResults.company || 'NEXT HIRE GLOBAL'}</p>
+                                                </div>
+                                                <div className="mt-2 sm:mt-0 text-left sm:text-right">
+                                                    <p className="text-xs text-slate-400 font-semibold uppercase tracking-wider mb-1">Fecha de Reporte</p>
+                                                    <p className="text-sm font-bold text-slate-800">{product.labResults.reportDate || '--'}</p>
+                                                </div>
+                                            </div>
+
+                                            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6 relative z-10">
+                                                <div className="bg-white rounded-xl p-3 shadow-sm border border-slate-100 flex flex-col items-center justify-center text-center">
+                                                    <span className="text-xs text-slate-400 font-bold mb-1">THC Total</span>
+                                                    <span className="text-lg font-black text-emerald-600">{product.labResults.thcTotal || '--'}</span>
+                                                </div>
+                                                <div className="bg-white rounded-xl p-3 shadow-sm border border-slate-100 flex flex-col items-center justify-center text-center">
+                                                    <span className="text-xs text-slate-400 font-bold mb-1">CBD Total</span>
+                                                    <span className="text-lg font-black text-blue-500">{product.labResults.cbdTotal || '--'}</span>
+                                                </div>
+                                                <div className="bg-white rounded-xl p-3 shadow-sm border border-slate-100 flex flex-col items-center justify-center text-center">
+                                                    <span className="text-xs text-slate-400 font-bold mb-1">Terpenos</span>
+                                                    <span className="text-lg font-black text-purple-500">{product.labResults.totalTerpenes || '--'}</span>
+                                                </div>
+                                                <div className="bg-white rounded-xl p-3 shadow-sm border border-slate-100 flex flex-col items-center justify-center text-center">
+                                                    <span className="text-xs text-slate-400 font-bold mb-1">Humedad</span>
+                                                    <span className="text-lg font-black text-amber-500">{product.labResults.moisture || '--'}</span>
+                                                </div>
+                                            </div>
+
+                                            {product.labResults.terpenesProfile && product.labResults.terpenesProfile.length > 0 && (
+                                                <div className="relative z-10">
+                                                    <p className="text-xs text-slate-400 font-semibold uppercase tracking-wider mb-3">Perfil de Terpenos</p>
+                                                    <div className="flex flex-wrap gap-2">
+                                                        {product.labResults.terpenesProfile.map((terp, idx) => (
+                                                            <span key={idx} className="px-2.5 py-1 rounded-md bg-white border border-slate-200 text-slate-600 text-xs font-medium shadow-sm">
+                                                                {terp}
+                                                            </span>
+                                                        ))}
+                                                    </div>
+                                                </div>
+                                            )}
+                                        </div>
+                                    </div>
+                                )}
+
                                 {/* Availability */}
+
                                 <div>
                                     <h3 className="text-sm font-bold text-slate-500 uppercase tracking-wider mb-3">
                                         Disponibilidad

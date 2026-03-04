@@ -70,6 +70,18 @@ export interface Product {
     description?: string; // Promotion description
   };
   options?: ProductOption[]; // e.g., sizes or variations
+  labResults?: {
+    reportDate?: string;
+    company?: string;
+    thcTotal?: string;
+    thca?: string;
+    cbdTotal?: string;
+    cbda?: string;
+    cbgTotal?: string;
+    moisture?: string;
+    totalTerpenes?: string;
+    terpenesProfile?: string[];
+  };
 }
 
 export enum CourseType {
