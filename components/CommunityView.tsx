@@ -273,68 +273,50 @@ const CommunityView: React.FC<CommunityViewProps> = ({ currentUser, courses, set
             </a>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-            {/* Instagram Video (Principal) */}
-            <div className="lg:col-span-1">
-              <div className="bg-white rounded-2xl overflow-hidden shadow-xl border border-dark-border h-full min-h-[500px] flex flex-col justify-center">
-                <iframe
-                  className="w-full h-full min-h-[520px]"
-                  src="https://www.instagram.com/p/DO6WZjGETaD/embed"
-                  title="Instagram video player"
-                  allow="encrypted-media"
-                  scrolling="no"
-                  frameBorder="0"
-                />
-              </div>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
+            {/* Local Video 1 Placeholder */}
+            <div className="bg-black rounded-3xl overflow-hidden shadow-2xl border border-dark-border aspect-video w-full h-full relative flex items-center justify-center p-8 text-center flex-col text-slate-400">
+              <Icon name="play" className="w-16 h-16 mb-4 opacity-30 text-emerald-500" />
+              <h4 className="text-xl font-bold text-slate-200 mb-2">Entrevista TORUS_1</h4>
+              <p className="text-sm">Video demasiado pesado (795MB) para la web.<br />Por favor, súbelo a YouTube para incrustar el enlace aquí.</p>
             </div>
 
-            {/* YouTube Videos Grid */}
-            <div className="lg:col-span-2 grid grid-cols-1 sm:grid-cols-2 gap-6">
-              <div className="bg-black rounded-2xl overflow-hidden shadow-xl border border-dark-border aspect-video w-full h-full relative group">
-                <iframe
-                  className="absolute top-0 left-0 w-full h-full border-none"
-                  src="https://www.youtube.com/embed/omozZZr7hPA"
-                  title="YouTube video player 1"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                  allowFullScreen
-                />
-              </div>
-              <div className="bg-black rounded-2xl overflow-hidden shadow-xl border border-dark-border aspect-video w-full h-full relative group">
-                <iframe
-                  className="absolute top-0 left-0 w-full h-full border-none"
-                  src="https://www.youtube.com/embed/tOQxOguZJr8?start=1554"
-                  title="YouTube video player 2"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                  allowFullScreen
-                />
-              </div>
-              <div className="bg-black rounded-2xl overflow-hidden shadow-xl border border-dark-border aspect-video w-full h-full relative group">
-                <iframe
-                  className="absolute top-0 left-0 w-full h-full border-none"
-                  src="https://www.youtube.com/embed/vRLxreO7aqQ"
-                  title="YouTube video player 3"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                  allowFullScreen
-                />
-              </div>
-              <div className="bg-black rounded-2xl overflow-hidden shadow-xl border border-dark-border aspect-video w-full h-full relative group">
-                <iframe
-                  className="absolute top-0 left-0 w-full h-full border-none"
-                  src="https://www.youtube.com/embed/Zz2kKt9iPXs"
-                  title="YouTube video player 4"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                  allowFullScreen
-                />
-              </div>
-              <div className="bg-black rounded-2xl overflow-hidden shadow-xl border border-dark-border aspect-video w-full h-full relative group sm:col-span-2">
-                <iframe
-                  className="absolute top-0 left-0 w-full h-full border-none"
-                  src="https://www.youtube.com/embed/lGpKSovM10E"
-                  title="YouTube video player 5"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                  allowFullScreen
-                />
-              </div>
+            {/* Local Video 2 Placeholder */}
+            <div className="bg-black rounded-3xl overflow-hidden shadow-2xl border border-dark-border aspect-video w-full h-full relative flex items-center justify-center p-8 text-center flex-col text-slate-400">
+              <Icon name="play" className="w-16 h-16 mb-4 opacity-30 text-emerald-500" />
+              <h4 className="text-xl font-bold text-slate-200 mb-2">TORUS MARCHA</h4>
+              <p className="text-sm">Video demasiado pesado (700MB) para la web.<br />Por favor, súbelo a YouTube para incrustar el enlace aquí.</p>
+            </div>
+          </div>
+
+          {/* YouTube Videos Grid (Remaining 3) */}
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
+            <div className="bg-black rounded-2xl overflow-hidden shadow-xl border border-dark-border aspect-video w-full h-full relative group">
+              <iframe
+                className="absolute top-0 left-0 w-full h-full border-none"
+                src="https://www.youtube.com/embed/vRLxreO7aqQ"
+                title="YouTube video player 3"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+              />
+            </div>
+            <div className="bg-black rounded-2xl overflow-hidden shadow-xl border border-dark-border aspect-video w-full h-full relative group">
+              <iframe
+                className="absolute top-0 left-0 w-full h-full border-none"
+                src="https://www.youtube.com/embed/Zz2kKt9iPXs"
+                title="YouTube video player 4"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+              />
+            </div>
+            <div className="bg-black rounded-2xl overflow-hidden shadow-xl border border-dark-border aspect-video w-full h-full relative group">
+              <iframe
+                className="absolute top-0 left-0 w-full h-full border-none"
+                src="https://www.youtube.com/embed/lGpKSovM10E"
+                title="YouTube video player 5"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+              />
             </div>
           </div>
         </div>
