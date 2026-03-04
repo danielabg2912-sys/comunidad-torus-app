@@ -543,18 +543,29 @@ const MenuView: React.FC<MenuViewProps> = ({ products, categories }) => {
         )}
       </div>
 
-      {/* Scroll to Top Button */}
-      {showScrollTop && (
+      {/* Scroll Buttons Widget */}
+      <div className={`fixed bottom-8 right-8 z-40 flex flex-col gap-2 transition-all duration-500 ${showScrollTop ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-10 pointer-events-none'}`}>
         <button
           onClick={scrollToTop}
-          className="fixed bottom-32 right-6 md:bottom-28 md:right-8 z-40 p-3.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-full shadow-2xl transition-all duration-300 animate-in fade-in slide-in-from-bottom-4 hover:scale-110 focus:outline-none focus:ring-4 focus:ring-emerald-500/30 flex items-center justify-center"
-          aria-label="Volver arriba"
+          className="p-3 rounded-full bg-emerald-600/90 backdrop-blur-sm text-white shadow-[0_0_15px_rgba(16,185,129,0.3)] transition-all duration-300 hover:bg-emerald-500 hover:scale-110"
+          aria-label="Subir"
+          title="Ir arriba"
         >
-          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 10l7-7m0 0l7 7m-7-7v18" />
+          <svg className="w-5 h-5 rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
           </svg>
         </button>
-      )}
+        <button
+          onClick={scrollToBottom}
+          className="p-3 rounded-full bg-emerald-600/90 backdrop-blur-sm text-white shadow-[0_0_15px_rgba(16,185,129,0.3)] transition-all duration-300 hover:bg-emerald-500 hover:scale-110"
+          aria-label="Bajar"
+          title="Ir abajo"
+        >
+          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+          </svg>
+        </button>
+      </div>
 
       {/* Product Detail Modal */}
       {selectedProduct && (

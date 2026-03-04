@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import { Course, CourseType, SierraActivity, User, CourseRegistration } from '../types';
 import { Card } from './common/Card';
 import { Button } from './common/Button';
@@ -111,6 +111,19 @@ const CommunityView: React.FC<CommunityViewProps> = ({ currentUser, courses, set
   const [paymentModalCourse, setPaymentModalCourse] = useState<Course | null>(null);
 
   const isAdmin = currentUser.role === 'admin';
+
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 50);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  const scrollToTop = () => window.scrollTo({ top: 0, behavior: 'smooth' });
+  const scrollToBottom = () => window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
 
   const handleShowPaymentInfo = (course: Course) => {
     setPaymentModalCourse(course);
@@ -418,6 +431,30 @@ const CommunityView: React.FC<CommunityViewProps> = ({ currentUser, courses, set
         title="Confirmar Eliminación"
         message={`¿Estás seguro de que quieres eliminar "${itemToDelete?.name}"? Esta acción no se puede deshacer.`}
       />
+
+      {/* Scroll Buttons Widget */}
+      <div className={`fixed bottom-8 right-8 z-40 flex flex-col gap-2 transition-all duration-500 ${scrolled ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-10 pointer-events-none'}`}>
+        <button
+          onClick={scrollToTop}
+          className="p-3 rounded-full bg-emerald-600/90 backdrop-blur-sm text-white shadow-[0_0_15px_rgba(16,185,129,0.3)] transition-all duration-300 hover:bg-emerald-500 hover:scale-110"
+          aria-label="Subir"
+          title="Ir arriba"
+        >
+          <svg className="w-5 h-5 rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+          </svg>
+        </button>
+        <button
+          onClick={scrollToBottom}
+          className="p-3 rounded-full bg-emerald-600/90 backdrop-blur-sm text-white shadow-[0_0_15px_rgba(16,185,129,0.3)] transition-all duration-300 hover:bg-emerald-500 hover:scale-110"
+          aria-label="Bajar"
+          title="Ir abajo"
+        >
+          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+          </svg>
+        </button>
+      </div>
     </>
   );
 };
