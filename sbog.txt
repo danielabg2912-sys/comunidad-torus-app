@@ -1,0 +1,63 @@
+Report Date: 22-Jan-2026
+Company:  NEXT HIRE GLOBAL
+Material Name: Cannabis Analysis - Valenveras
+Sample ID: SBOG
+Created on behalf of: --
+Created By: a9295403@gmail.com
+Created at: 22-Jan-2026 09:51 pm
+Modified at: 22-Jan-2026 09:51 pm
+Device Id: NeoScanner_25050003
+Lot name: --
+Supplier name: --
+Location: 19.4157686, -99.1655081
+Note: --
+Results:
+Parameter                           Result                              Unit
+aW                                0.54                              None
+CBD Global_2                           0.03                                %
+CBD Total                            0.2                               %
+CBD_Total_Global                           0                                %
+CBD_Total_High                           2.7                               %
+CBD_Total_Low                           0.2                               %
+CBDa                                0.3                               %
+CBDa_V2                             2.06                                %
+CBDn                                 0                                %
+Report Date: 22-Jan-2026
+Page 1 of 3
+Sample ID: SBOG
+Created at: 22-Jan-2026 09:51 pm
+Modified at: 22-Jan-2026 09:51 pm
+----------------Page (0) Break----------------
+Parameter                           Result                              Unit
+CBG Total                            0.4                               %
+Moisture                             12.6                                %
+THC Total                           18.23                              %
+THC_Total_Global                         17.6                                %
+THC_Total_High                          18.23                              %
+THC_Total_Low                          6.36                                %
+THCa                               19.88                              %
+THCn                                0.7                               %
+Total Terpenes                          1.01                                %
+B-Myrcene
+Limonene
+Linalool
+B-Caryophyllene
+G-elemene
+A-Humulene
+Eudesma
+B-Pinene
+A-Pinene
+Report Date: 22-Jan-2026
+Page 2 of 3
+Sample ID: SBOG
+Created at: 22-Jan-2026 09:51 pm
+Modified at: 22-Jan-2026 09:51 pm
+----------------Page (1) Break----------------
+A-Bisabolol
+Terpinolene
+Report Date: 22-Jan-2026
+Page 3 of 3
+Sample ID: SBOG
+Created at: 22-Jan-2026 09:51 pm
+Modified at: 22-Jan-2026 09:51 pm
+----------------Page (2) Break----------------

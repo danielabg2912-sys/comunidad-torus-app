@@ -1,0 +1,63 @@
+Report Date: 22-Jan-2026
+Company:  NEXT HIRE GLOBAL
+Material Name: Cannabis Analysis - Valenveras
+Sample ID: GELATO 
+Created on behalf of: --
+Created By: a9295403@gmail.com
+Created at: 22-Jan-2026 09:41 pm
+Modified at: 22-Jan-2026 09:41 pm
+Device Id: NeoScanner_25050003
+Lot name: --
+Supplier name: --
+Location: 19.4162195, -99.1655588
+Note: --
+Results:
+Parameter                           Result                              Unit
+aW                                0.61                              None
+CBD Global_2                             0                                %
+CBD Total                            0.3                               %
+CBD_Total_Global                           0                                %
+CBD_Total_High                           2.5                               %
+CBD_Total_Low                           0.3                               %
+CBDa                                 0                                %
+CBDa_V2                             1.39                                %
+CBDn                                0.3                               %
+Report Date: 22-Jan-2026
+Page 1 of 3
+Sample ID: GELATO 
+Created at: 22-Jan-2026 09:41 pm
+Modified at: 22-Jan-2026 09:41 pm
+----------------Page (0) Break----------------
+Parameter                           Result                              Unit
+CBG Total                            0.4                               %
+Moisture                             12.9                                %
+THC Total                           20.35                              %
+THC_Total_Global                         19.1                                %
+THC_Total_High                          20.35                              %
+THC_Total_Low                          6.28                                %
+THCa                               22.32                              %
+THCn                                0.7                               %
+Total Terpenes                          1.24                                %
+B-Myrcene
+Limonene
+Linalool
+B-Caryophyllene
+G-elemene
+A-Humulene
+Eudesma
+B-Pinene
+A-Pinene
+Report Date: 22-Jan-2026
+Page 2 of 3
+Sample ID: GELATO 
+Created at: 22-Jan-2026 09:41 pm
+Modified at: 22-Jan-2026 09:41 pm
+----------------Page (1) Break----------------
+A-Bisabolol
+Terpinolene
+Report Date: 22-Jan-2026
+Page 3 of 3
+Sample ID: GELATO 
+Created at: 22-Jan-2026 09:41 pm
+Modified at: 22-Jan-2026 09:41 pm
+----------------Page (2) Break----------------
