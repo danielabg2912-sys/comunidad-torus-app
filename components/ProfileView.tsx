@@ -126,10 +126,6 @@ const ProfileView: React.FC<ProfileViewProps> = ({ currentUser, users, setUsers,
                       <div className="w-20 h-20 flex items-center justify-center">
                         <img src="/images/torus-logo-white.png" alt="Torus" className="w-16 h-16 object-contain drop-shadow-lg" />
                       </div>
-                      <div className="leading-none">
-                        <h3 className="text-lg font-black tracking-wide">TORUS</h3>
-                        <p className="text-[10px] uppercase tracking-[0.2em] text-white/60">Official Member</p>
-                      </div>
                     </div>
                     <div className="px-2 py-1 bg-emerald-500/20 border border-emerald-500/30 rounded text-[10px] font-bold uppercase tracking-widest text-emerald-300">
                       Active
