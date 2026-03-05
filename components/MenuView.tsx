@@ -5,14 +5,14 @@ import { ProductDetailModal } from './common/ProductDetailModal';
 
 // Category display mapping — keys must match EXACTLY the category names in Firebase
 const CATEGORY_DISPLAY_NAMES: Record<string, string> = {
-  'Interior': '🌿 Flores Interior',
-  'Invernadero': '🏡 Flores Invernadero',
-  'Exterior': '☀️ Flores Exterior',
-  'CBD': '💚 CBD & Bienestar',
-  'Comestibles': '🍬 Para el Munchies',
-  'Extracto': '✨ Extractos',
-  'Parafernalia': '🛠️ Parafernalia',
-  'Prerolados': '🔥 Prerolados',
+  'Interior': 'Flores Interior',
+  'Invernadero': 'Flores Invernadero',
+  'Exterior': 'Flores Exterior',
+  'CBD': 'CBD & Bienestar',
+  'Comestibles': 'Para el Munchies',
+  'Extracto': 'Extractos',
+  'Parafernalia': 'Parafernalia',
+  'Prerolados': 'Prerolados',
   'Todas': 'Todas las categorías'
 };
 
@@ -235,13 +235,24 @@ const MenuView: React.FC<MenuViewProps> = ({ products, categories }) => {
   const remainingCategories = categories.filter(cat => !explicitOrder.includes(cat)).sort();
   const orderedCategories = ['Todas', ...explicitOrder.filter(cat => categories.includes(cat)), ...remainingCategories];
 
-  const filteredProducts = products.filter(product => {
-    const matchesCategory = selectedCategory === 'Todas' || product.category === selectedCategory;
-    const matchesSearch = product.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      product.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      (product.brand || '').toLowerCase().includes(searchQuery.toLowerCase());
-    return matchesCategory && matchesSearch;
-  });
+  // Sort products by category order when "Todas" is selected
+  const CATEGORY_ORDER = ['Interior', 'Invernadero', 'Exterior', 'CBD', 'Comestibles', 'Extracto', 'Parafernalia', 'Prerolados'];
+  const filteredProducts = products
+    .filter(product => {
+      const matchesCategory = selectedCategory === 'Todas' || product.category === selectedCategory;
+      const matchesSearch = product.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        product.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        (product.brand || '').toLowerCase().includes(searchQuery.toLowerCase());
+      return matchesCategory && matchesSearch;
+    })
+    .sort((a, b) => {
+      const orderA = CATEGORY_ORDER.indexOf(a.category);
+      const orderB = CATEGORY_ORDER.indexOf(b.category);
+      const posA = orderA === -1 ? 999 : orderA;
+      const posB = orderB === -1 ? 999 : orderB;
+      if (posA !== posB) return posA - posB;
+      return a.name.localeCompare(b.name);
+    });
 
   // Get products with active promotions
   const promotionalProducts = products.filter(product => product.promotion?.isActive);
