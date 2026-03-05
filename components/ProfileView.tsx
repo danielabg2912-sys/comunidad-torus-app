@@ -123,8 +123,8 @@ const ProfileView: React.FC<ProfileViewProps> = ({ currentUser, users, setUsers,
                 <div className="relative z-10 h-full flex flex-col justify-between">
                   <div className="flex justify-between items-start">
                     <div className="flex items-center gap-3">
-                      <div className="w-20 h-20 flex items-center justify-center">
-                        <img src="/images/torus-logo-white.png" alt="Torus" className="w-16 h-16 object-contain drop-shadow-lg" />
+                      <div className="w-14 h-14 flex items-center justify-center">
+                        <img src="/images/torus-logo-white.png" alt="Torus" className="w-12 h-12 object-contain drop-shadow-lg" />
                       </div>
                     </div>
                     <div className="px-2 py-1 bg-emerald-500/20 border border-emerald-500/30 rounded text-[10px] font-bold uppercase tracking-widest text-emerald-300">
@@ -135,7 +135,7 @@ const ProfileView: React.FC<ProfileViewProps> = ({ currentUser, users, setUsers,
                   <div className="space-y-4">
                     <div>
                       <p className="text-[10px] uppercase tracking-widest text-white/40 font-bold mb-1">Member Name</p>
-                      <p className="text-xl font-bold tracking-tight text-white">{currentUser?.name || 'Usuario'}</p>
+                      <p className="text-base font-bold leading-tight text-white break-words">{currentUser?.name || 'Usuario'}</p>
                     </div>
 
                     <div className="flex justify-between items-end border-t border-white/10 pt-4">
