@@ -182,7 +182,7 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({ product,
                                             <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center border-b border-slate-200 pb-4 mb-4 relative z-10">
                                                 <div>
                                                     <p className="text-xs text-slate-400 font-semibold uppercase tracking-wider mb-1">Laboratorio</p>
-                                                    <p className="text-sm font-bold text-slate-800">{product.labResults.company || 'NEXT HIRE GLOBAL'}</p>
+                                                    <p className="text-sm font-bold text-slate-800">{(product.labResults.company || 'NEXT HIRE GLOBAL').split(' / ')[0].trim()}</p>
                                                 </div>
                                                 <div className="mt-2 sm:mt-0 text-left sm:text-right">
                                                     <p className="text-xs text-slate-400 font-semibold uppercase tracking-wider mb-1">Fecha de Reporte</p>
