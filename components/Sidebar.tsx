@@ -45,15 +45,10 @@ const Sidebar: React.FC<SidebarProps> = ({ currentView, setCurrentView, onLogout
                     {/* Background Glow */}
                     <div className="absolute top-0 left-0 w-full h-32 bg-gradient-to-b from-emerald-50/50 to-transparent pointer-events-none" />
 
+
                     {/* Logo Area */}
-                    <div className="flex items-center gap-4 mb-10 px-2 relative z-10">
-                        <div className="w-12 h-12 bg-gradient-to-br from-emerald-500 to-teal-400 rounded-2xl flex items-center justify-center shadow-lg shadow-emerald-500/30 transform hover:scale-105 transition-transform duration-300">
-                            <img src="/images/torus-logo-white.png" alt="Torus" className="w-8 h-8 object-contain drop-shadow-md" />
-                        </div>
-                        <div>
-                            <h1 className="text-2xl font-black text-slate-800 tracking-tight leading-none bg-clip-text text-transparent bg-gradient-to-r from-slate-900 to-slate-700">TORUS</h1>
-                            <p className="text-[10px] text-emerald-600 font-bold uppercase tracking-[0.2em] mt-1">Comunidad</p>
-                        </div>
+                    <div className="flex items-center mb-10 px-2 relative z-10">
+                        <img src="/images/torus-logo-black.png" alt="Torus" className="h-14 w-auto object-contain" />
                     </div>
 
                     {/* Navigation */}

@@ -230,8 +230,8 @@ const MenuView: React.FC<MenuViewProps> = ({ products, categories }) => {
     }
   };
 
-  // Custom category ordering
-  const explicitOrder = ['Flores Interior', 'Flores Invernadero', 'Flores Exterior'];
+  // Custom category ordering: flowers (Interior, Invernadero, Exterior) first
+  const explicitOrder = ['Interior', 'Invernadero', 'Exterior'];
   const remainingCategories = categories.filter(cat => !explicitOrder.includes(cat)).sort();
   const orderedCategories = ['Todas', ...explicitOrder.filter(cat => categories.includes(cat)), ...remainingCategories];
 

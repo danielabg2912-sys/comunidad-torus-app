@@ -123,8 +123,8 @@ const ProfileView: React.FC<ProfileViewProps> = ({ currentUser, users, setUsers,
                 <div className="relative z-10 h-full flex flex-col justify-between">
                   <div className="flex justify-between items-start">
                     <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 bg-white/10 backdrop-blur-sm rounded-xl flex items-center justify-center border border-white/10">
-                        <img src="/images/torus-logo-white.png" alt="Torus" className="w-7 h-7 object-contain" />
+                      <div className="w-14 h-14 flex items-center justify-center">
+                        <img src="/images/torus-logo-white.png" alt="Torus" className="w-12 h-12 object-contain drop-shadow-lg" />
                       </div>
                       <div className="leading-none">
                         <h3 className="text-lg font-black tracking-wide">TORUS</h3>
