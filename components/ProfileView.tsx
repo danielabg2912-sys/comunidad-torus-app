@@ -124,7 +124,7 @@ const ProfileView: React.FC<ProfileViewProps> = ({ currentUser, users, setUsers,
                   <div className="flex justify-between items-start">
                     <div className="flex items-center gap-3">
                       <div className="w-10 h-10 bg-white/10 backdrop-blur-sm rounded-xl flex items-center justify-center border border-white/10">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M12 2L2 7L12 12L22 7L12 2Z" /><path d="M2 17L12 22L22 17" /><path d="M2 12L12 17L22 12" /></svg>
+                        <img src="/images/torus-logo-white.png" alt="Torus" className="w-7 h-7 object-contain" />
                       </div>
                       <div className="leading-none">
                         <h3 className="text-lg font-black tracking-wide">TORUS</h3>
