@@ -3,16 +3,16 @@ import { Product } from '../types';
 import { Icon } from './common/Icon';
 import { ProductDetailModal } from './common/ProductDetailModal';
 
-// Category display mapping for a fun, engaging UI
+// Category display mapping — keys must match EXACTLY the category names in Firebase
 const CATEGORY_DISPLAY_NAMES: Record<string, string> = {
-  'Flores Interior': 'Indoor Premium',
-  'Flores Invernadero': 'Invernadero Flow',
-  'Flores Exterior': 'Pura Tierra',
-  'CBD & Bienestar': 'Cero High, Puro Chill',
-  'Comestibles': 'Para el Munchies',
-  'Extractos': 'Un Toque Extra',
-  'Parafernalia': 'Tus Herramientas de Vuelo',
-  'Prerolados': 'Llegar y Prender',
+  'Interior': '🌿 Flores Interior',
+  'Invernadero': '🏡 Flores Invernadero',
+  'Exterior': '☀️ Flores Exterior',
+  'CBD': '💚 CBD & Bienestar',
+  'Comestibles': '🍬 Para el Munchies',
+  'Extracto': '✨ Extractos',
+  'Parafernalia': '🛠️ Parafernalia',
+  'Prerolados': '🔥 Prerolados',
   'Todas': 'Todas las categorías'
 };
 
@@ -213,25 +213,25 @@ const MenuView: React.FC<MenuViewProps> = ({ products, categories }) => {
   const SCROLL_STEP = 400;
 
   const scrollToTop = () => {
-    const scrollContainer = document.getElementById('main-scroll-container');
-    if (scrollContainer) {
-      scrollContainer.scrollBy({ top: -SCROLL_STEP, behavior: 'smooth' });
+    const el = document.getElementById('main-scroll-container');
+    if (el) {
+      el.scrollBy({ top: -SCROLL_STEP, behavior: 'smooth' });
     } else {
-      window.scrollBy({ top: -SCROLL_STEP, behavior: 'smooth' });
+      document.documentElement.scrollBy({ top: -SCROLL_STEP, behavior: 'smooth' });
     }
   };
 
   const scrollToBottom = () => {
-    const scrollContainer = document.getElementById('main-scroll-container');
-    if (scrollContainer) {
-      scrollContainer.scrollBy({ top: SCROLL_STEP, behavior: 'smooth' });
+    const el = document.getElementById('main-scroll-container');
+    if (el) {
+      el.scrollBy({ top: SCROLL_STEP, behavior: 'smooth' });
     } else {
-      window.scrollBy({ top: SCROLL_STEP, behavior: 'smooth' });
+      document.documentElement.scrollBy({ top: SCROLL_STEP, behavior: 'smooth' });
     }
   };
 
-  // Custom category ordering: flowers (Interior, Invernadero, Exterior) first
-  const explicitOrder = ['Interior', 'Invernadero', 'Exterior'];
+  // Ordered: flowers first, then rest alphabetically
+  const explicitOrder = ['Interior', 'Invernadero', 'Exterior', 'CBD', 'Comestibles', 'Extracto', 'Parafernalia', 'Prerolados'];
   const remainingCategories = categories.filter(cat => !explicitOrder.includes(cat)).sort();
   const orderedCategories = ['Todas', ...explicitOrder.filter(cat => categories.includes(cat)), ...remainingCategories];
 
