@@ -48,7 +48,7 @@ const Sidebar: React.FC<SidebarProps> = ({ currentView, setCurrentView, onLogout
 
                     {/* Logo Area */}
                     <div className="flex items-center mb-10 px-2 relative z-10">
-                        <img src="/images/torus-logo-black.png" alt="Torus" className="h-14 w-auto object-contain" />
+                        <img src="/images/torus-logo-black.png" alt="Torus" className="h-20 w-auto object-contain" />
                     </div>
 
                     {/* Navigation */}

@@ -134,11 +134,11 @@ const LoginView: React.FC<LoginViewProps> = ({ onLoginSuccess }) => {
 
         <div className="max-w-md w-full relative z-10 animate-in fade-in zoom-in-95 duration-500">
           <div className="text-center mb-10 flex flex-col items-center">
-            <div className="p-4 bg-white/5 rounded-3xl backdrop-blur-md border border-white/10 mb-6 shadow-2xl">
+            <div className="mb-6">
               <img
                 src="/images/torus-logo-white.png"
                 alt="Torus AC"
-                className="h-16 w-auto object-contain drop-shadow-md"
+                className="h-28 w-auto object-contain drop-shadow-xl mx-auto"
               />
             </div>
             <h2 className="text-3xl font-bold text-white tracking-tight">Bienvenido a la Comunidad</h2>
